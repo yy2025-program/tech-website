@@ -87,7 +87,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #667eea;
+    color: #ff9500;
 }
 
 .nav-link::after {
@@ -97,11 +97,16 @@ body {
     height: 2px;
     bottom: -5px;
     left: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
     transition: width 0.3s ease;
 }
 
 .nav-link:hover::after {
+    width: 100%;
+}
+
+/* Ensure dropdown toggles also get the underline effect */
+.dropdown-toggle:hover::after {
     width: 100%;
 }
 
@@ -143,9 +148,9 @@ body {
 }
 
 .dropdown-content a:hover {
-    background: rgba(102, 126, 234, 0.1);
-    color: #667eea;
-    border-left-color: #667eea;
+    background: rgba(255, 149, 0, 0.1);
+    color: #ff9500;
+    border-left-color: #ff9500;
 }
 
 .nav-dropdown:hover .dropdown-content {
@@ -154,7 +159,7 @@ body {
 }
 
 .nav-dropdown:hover .dropdown-toggle {
-    color: #667eea;
+    color: #ff9500;
 }
 
 /* Dropdown Animation */
