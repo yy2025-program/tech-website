@@ -118,8 +118,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Chat Widget Functionality
-class ChatWidget {
+// Amazon Q Chat Widget with API Integration
+class AmazonQChatWidget {
     constructor() {
         this.chatButton = document.getElementById('chat-button');
         this.chatPanel = document.getElementById('chat-panel');
@@ -127,8 +127,12 @@ class ChatWidget {
         this.chatInput = document.getElementById('chat-input');
         this.sendButton = document.getElementById('send-button');
         this.chatMessages = document.getElementById('chat-messages');
+        this.chatStatus = document.getElementById('chat-status');
         
         this.isOpen = false;
+        this.conversationId = this.generateConversationId();
+        this.config = window.AMAZON_Q_CONFIG || {};
+        
         this.init();
     }
     
@@ -140,7 +144,8 @@ class ChatWidget {
         // Send message
         this.sendButton.addEventListener('click', () => this.sendMessage());
         this.chatInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
                 this.sendMessage();
             }
         });
@@ -151,6 +156,13 @@ class ChatWidget {
                 this.closeChat();
             }
         });
+        
+        // Initialize welcome message
+        this.updateWelcomeMessage();
+    }
+    
+    generateConversationId() {
+        return 'conv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
     
     toggleChat() {
@@ -172,7 +184,7 @@ class ChatWidget {
         this.isOpen = false;
     }
     
-    sendMessage() {
+    async sendMessage() {
         const message = this.chatInput.value.trim();
         if (!message) return;
         
@@ -180,18 +192,147 @@ class ChatWidget {
         this.addMessage(message, 'user');
         this.chatInput.value = '';
         
-        // Simulate Amazon Q response
-        setTimeout(() => {
-            this.generateBotResponse(message);
-        }, 1000);
+        // Show typing indicator
+        this.showTypingIndicator();
+        
+        try {
+            // Call Amazon Q API or demo response
+            const response = await this.callAmazonQAPI(message);
+            this.hideTypingIndicator();
+            this.addMessage(response, 'bot');
+        } catch (error) {
+            this.hideTypingIndicator();
+            this.addMessage('Sorry, I encountered an error. Please try again later.', 'bot', true);
+            console.error('Amazon Q API Error:', error);
+        }
     }
     
-    addMessage(content, sender) {
+    async callAmazonQAPI(message) {
+        // Check if using demo mode or real API
+        if (this.config.useDemo) {
+            return await this.getDemoResponse(message);
+        } else {
+            return await this.getRealAmazonQResponse(message);
+        }
+    }
+    
+    async getRealAmazonQResponse(message) {
+        // Real Amazon Q API integration
+        // Note: This requires proper AWS credentials and CORS configuration
+        try {
+            const response = await fetch('/api/amazon-q/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: message,
+                    conversationId: this.conversationId,
+                    applicationId: this.config.applicationId
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.message || 'I apologize, but I couldn\'t process your request right now.';
+        } catch (error) {
+            console.error('Amazon Q API call failed:', error);
+            throw error;
+        }
+    }
+    
+    async getDemoResponse(message) {
+        // Enhanced demo responses for FMS logistics
+        await this.delay(1000 + Math.random() * 2000); // Simulate API delay
+        
+        const responses = {
+            // FMS specific responses
+            'fms': 'FMS (Fulfillment by Amazon) is our comprehensive logistics solution. I can help you with inventory management, shipping processes, seller resources, and operational best practices. What specific area would you like to explore?',
+            
+            'inventory': 'For inventory management in FMS, I recommend checking our SCA Central VoS Bank for the latest inventory optimization strategies. You can also access real-time inventory tracking through our internal dashboards. Would you like me to guide you to specific resources?',
+            
+            'shipping': 'Our shipping processes are optimized for efficiency and cost-effectiveness. Key areas include: 1) Inbound shipping protocols, 2) Outbound delivery optimization, 3) Cross-docking procedures. Which shipping aspect interests you most?',
+            
+            'seller': 'For seller-facing resources, we have comprehensive support materials including: seller learning intake forms, work plans, and troubleshooting guides. You can access these through the FMS Seller Facing Resources menu. Need help with a specific seller issue?',
+            
+            'automation': 'Our data and automation tools include advanced analytics for demand forecasting, automated inventory replenishment, and process optimization algorithms. These tools help reduce manual work and improve accuracy. What automation challenge are you facing?',
+            
+            'best practice': 'FMS best practices focus on operational excellence, process optimization, and quality management. Key principles include: continuous improvement, data-driven decisions, and customer-centric operations. Which best practice area would you like to dive deeper into?',
+            
+            'gemba walk': 'Gemba walks are essential for understanding actual processes. Our methodology includes: 1) Structured observation techniques, 2) Systematic data collection, 3) Action planning based on findings. Would you like guidance on conducting effective gemba walks?',
+            
+            'domain': 'Our ESM FBA/SCA domain covers end-to-end fulfillment operations. Our domain members are experts in logistics optimization, process improvement, and operational excellence. How can our domain expertise help your specific challenge?',
+            
+            'pilot': 'The Global AWD Pilot program focuses on advanced warehouse distribution strategies. It includes innovative approaches to inventory placement, cross-docking optimization, and regional fulfillment strategies. Are you interested in participating or learning more about pilot results?',
+            
+            'workplan': 'Our 2025 ESM FBA SCA Work Plan outlines strategic initiatives, operational improvements, and technology implementations. Key focus areas include automation expansion, process standardization, and performance optimization. Which workplan component interests you?',
+            
+            'vos': 'Voice of Seller (VoS) feedback is crucial for our continuous improvement. Our VoS bank contains seller insights, pain points, and improvement suggestions. This data drives our operational enhancements and policy updates. Looking for specific VoS insights?',
+            
+            // General helpful responses
+            'help': 'I can assist you with FMS logistics operations including: inventory management, shipping processes, seller support, automation tools, best practices, gemba walk methodology, and domain expertise. What would you like to explore?',
+            
+            'hello': 'Hello! I\'m Amazon Q, specialized in FMS logistics operations. I can help you navigate our internal resources, understand best practices, and solve operational challenges. What brings you here today?',
+            
+            'thank': 'You\'re welcome! I\'m here to help with any FMS logistics questions or challenges you might have. Feel free to ask about our resources, processes, or best practices anytime.',
+            
+            // Default responses
+            'default': [
+                'That\'s an interesting question about FMS operations. Based on our logistics expertise, I\'d recommend checking our internal resources or consulting with domain experts. Could you provide more specific details about your challenge?',
+                'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, best practices, and expert insights. What specific aspect would you like me to help you with?',
+                'For complex FMS logistics questions like this, I suggest reviewing our work plans and best practice documentation. Our domain members have extensive experience with similar challenges. Would you like me to direct you to specific resources?'
+            ]
+        };
+        
+        // Find best matching response
+        const lowerMessage = message.toLowerCase();
+        let response = null;
+        
+        for (const [key, value] of Object.entries(responses)) {
+            if (key !== 'default' && lowerMessage.includes(key)) {
+                response = value;
+                break;
+            }
+        }
+        
+        // Use default response if no match found
+        if (!response) {
+            const defaultResponses = responses.default;
+            response = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
+        }
+        
+        return response;
+    }
+    
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    showTypingIndicator() {
+        this.chatStatus.innerHTML = `
+            <div class="typing-indicator">
+                Amazon Q is typing
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        `;
+        this.chatStatus.className = 'chat-status show typing';
+    }
+    
+    hideTypingIndicator() {
+        this.chatStatus.classList.remove('show', 'typing');
+    }
+    
+    addMessage(content, sender, isError = false) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
         
         const messageContent = document.createElement('div');
-        messageContent.className = 'message-content';
+        messageContent.className = `message-content ${isError ? 'error-message' : ''}`;
         messageContent.innerHTML = `<p>${content}</p>`;
         
         messageDiv.appendChild(messageContent);
@@ -201,41 +342,19 @@ class ChatWidget {
         this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
     }
     
-    generateBotResponse(userMessage) {
-        const responses = {
-            'hello': 'Hello! I\'m Amazon Q, your AI assistant for the Logistics Hub. I can help you with FMS resources, best practices, and gemba walk guidance.',
-            '你好': '您好！我是Amazon Q，物流中心的AI助手。我可以帮助您了解FMS资源、最佳实践和现场走访指导。',
-            'help': 'I can assist you with:\n• FMS Internal Resources\n• FMS Seller Facing Resources\n• Data and Automation\n• Best Practices\n• Gemba Walk methodology',
-            '帮助': '我可以为您提供以下帮助：\n• FMS内部资源\n• FMS卖家资源\n• 数据与自动化\n• 最佳实践\n• 现场走访方法论',
-            'fms': 'I can help you with FMS resources! We have internal resources for team members and seller-facing resources. Which would you like to know more about?',
-            'resources': 'Our main resource categories include:\n• FMS Internal Resources - tools and documentation for team members\n• FMS Seller Facing Resources - support materials for sellers\n• Data and Automation - analytics and automation tools',
-            '资源': '我们的主要资源类别包括：\n• FMS内部资源 - 面向团队成员的工具和文档\n• FMS卖家资源 - 面向卖家的支持材料\n• 数据与自动化 - 分析和自动化工具',
-            'best practice': 'Our best practices cover:\n• Operational Excellence\n• Process Optimization\n• Quality Management\nThese help achieve excellence in logistics operations.',
-            '最佳实践': '我们的最佳实践涵盖：\n• 运营卓越\n• 流程优化\n• 质量管理\n这些帮助在物流运营中实现卓越。',
-            'gemba walk': 'Gemba Walk methodology includes:\n• Observation Techniques\n• Walk Methodology\n• Action Planning\nIt helps identify improvement opportunities through direct observation.',
-            '现场走访': '现场走访方法论包括：\n• 观察技巧\n• 走访方法论\n• 行动计划\n通过直接观察帮助识别改进机会。',
-            'automation': 'Our Data and Automation tools provide advanced analytics and process optimization to drive intelligent decision-making across logistics operations.',
-            '自动化': '我们的数据与自动化工具提供先进的分析和流程优化功能，推动物流运营中的智能决策。',
-            'logistics': 'The Logistics Hub provides comprehensive resources for FMS operations, including internal tools, seller resources, best practices, and gemba walk guidance.',
-            '物流': '物流中心为FMS运营提供全面资源，包括内部工具、卖家资源、最佳实践和现场走访指导。'
-        };
-        
-        let response = this.findBestResponse(userMessage.toLowerCase(), responses);
-        
-        if (!response) {
-            response = 'I\'m Amazon Q from the Logistics Hub! I can help with FMS resources, best practices, gemba walk methodology, and data automation. What would you like to know?';
-        }
-        
-        this.addMessage(response, 'bot');
-    }
-    
-    findBestResponse(message, responses) {
-        for (const [key, response] of Object.entries(responses)) {
-            if (message.includes(key)) {
-                return response;
+    updateWelcomeMessage() {
+        // Update welcome message based on current language
+        const welcomeMessage = document.querySelector('.bot-message .message-content p');
+        if (welcomeMessage) {
+            const langSwitcher = document.querySelector('.lang-btn');
+            const isEnglish = !langSwitcher || langSwitcher.textContent === 'CN';
+            
+            if (isEnglish) {
+                welcomeMessage.textContent = '👋 Hello! I\'m Amazon Q, your AI assistant. How can I help you with FMS logistics today?';
+            } else {
+                welcomeMessage.textContent = '👋 您好！我是Amazon Q，您的AI助手。今天我可以如何帮助您处理FMS物流问题？';
             }
         }
-        return null;
     }
 }
 
@@ -275,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Initialize chat widget
-    new ChatWidget();
+    new AmazonQChatWidget();
 });
 
 // Particle effect for hero section

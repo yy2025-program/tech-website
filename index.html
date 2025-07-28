@@ -209,7 +209,7 @@
     <!-- Amazon Q Chat Widget -->
     <div id="chat-widget" class="chat-widget">
         <div id="chat-button" class="chat-button">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2C6.48 2 2 6.48 2 12C2 13.54 2.36 14.99 3.01 16.28L2 22L7.72 20.99C9.01 21.64 10.46 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C10.74 20 9.54 19.75 8.46 19.3L6 20L6.7 17.54C6.25 16.46 6 15.26 6 14C6 8.48 8.48 6 12 6C15.52 6 18 8.48 18 12C18 15.52 15.52 18 12 18Z" fill="currentColor"/>
                 <circle cx="9" cy="12" r="1" fill="currentColor"/>
                 <circle cx="12" cy="12" r="1" fill="currentColor"/>
@@ -221,7 +221,7 @@
             <div class="chat-header">
                 <div class="chat-title">
                     <div class="amazon-q-logo">Q</div>
-                    <span>Amazon Q Assistant</span>
+                    <span data-en="Amazon Q Assistant" data-cn="Amazon Q 助手">Amazon Q Assistant</span>
                 </div>
                 <button id="chat-close" class="chat-close">×</button>
             </div>
@@ -229,21 +229,37 @@
                 <div class="chat-messages" id="chat-messages">
                     <div class="message bot-message">
                         <div class="message-content">
-                            <p>👋 Hello! I'm Amazon Q, your AI assistant. How can I help you today?</p>
+                            <p data-en="👋 Hello! I'm Amazon Q, your AI assistant. How can I help you with FMS logistics today?" data-cn="👋 您好！我是Amazon Q，您的AI助手。今天我可以如何帮助您处理FMS物流问题？">
+                                👋 Hello! I'm Amazon Q, your AI assistant. How can I help you with FMS logistics today?
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="chat-input-container">
-                    <input type="text" id="chat-input" placeholder="Ask me anything..." />
+                    <input type="text" id="chat-input" data-en="Ask me anything about FMS logistics..." data-cn="询问我任何关于FMS物流的问题..." placeholder="Ask me anything about FMS logistics..." />
                     <button id="send-button" class="send-button">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
                         </svg>
                     </button>
                 </div>
+                <div class="chat-status" id="chat-status"></div>
             </div>
         </div>
     </div>
+
+    <!-- Amazon Q Configuration (Hidden) -->
+    <script>
+        // Amazon Q API Configuration
+        window.AMAZON_Q_CONFIG = {
+            // 这些配置需要根据你的实际Amazon Q应用设置
+            region: 'us-east-1',
+            applicationId: 'your-amazon-q-app-id', // 需要替换为实际的应用ID
+            // 注意：在生产环境中，不应该在前端暴露AWS凭证
+            // 应该使用AWS Cognito或其他安全的认证方式
+            useDemo: true // 设置为true使用演示模式，false使用真实API
+        };
+    </script>
 
     <script src="script.js"></script>
 </body>

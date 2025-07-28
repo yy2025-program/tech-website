@@ -645,6 +645,80 @@ body {
     transform: scale(1.05);
 }
 
+/* Chat Status Indicator */
+.chat-status {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    color: #999999;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: none;
+}
+
+.chat-status.show {
+    display: block;
+}
+
+.chat-status.typing {
+    color: #ff9500;
+}
+
+.chat-status.error {
+    color: #ff4444;
+}
+
+/* Typing Animation */
+.typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.typing-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #ff9500;
+    animation: typingDot 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+.typing-dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes typingDot {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Message Animations */
+.message {
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error Message Styling */
+.error-message {
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    color: #ff4444;
+}
+
 /* Animations */
 @keyframes fadeInUp {
     from {
