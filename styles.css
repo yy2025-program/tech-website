@@ -462,8 +462,8 @@ body {
 }
 
 .chat-button {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
     border-radius: 50%;
     display: flex;
@@ -480,9 +480,14 @@ body {
     box-shadow: 0 6px 25px rgba(255, 149, 0, 0.4);
 }
 
+.chat-button svg {
+    width: 32px;
+    height: 32px;
+}
+
 .chat-panel {
     position: absolute;
-    bottom: 80px;
+    bottom: 100px;
     right: 0;
     width: 350px;
     height: 500px;
