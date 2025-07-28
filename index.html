@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Technology Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>TechPlatform</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Amazon-style header -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <!-- Amazon-style breadcrumb header -->
+            <div class="breadcrumb-header">
+                <div class="breadcrumb-container">
+                    <span class="breadcrumb-item">Technology</span>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-item">Advanced Solutions</span>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-item active">Platform</span>
+                </div>
+            </div>
+            
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Building the Future with
+                    <span class="gradient-text">Advanced Technology</span>
+                </h1>
+                <p class="hero-description">
+                    Empowering innovation through cutting-edge solutions, intelligent automation, 
+                    and seamless user experiences that transform the way we interact with technology.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary">Get Started</button>
+                    <button class="btn-secondary">Learn More</button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-elements">
+                    <div class="floating-card card-1">
+                        <div class="card-icon">🚀</div>
+                        <h3>Innovation</h3>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-icon">🤖</div>
+                        <h3>AI Powered</h3>
+                    </div>
+                    <div class="floating-card card-3">
+                        <div class="card-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="features">
+        <div class="container">
+            <h2 class="section-title">Advanced Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Intelligent Systems</h3>
+                    <p>Leverage advanced AI and machine learning to create intelligent, adaptive solutions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Architecture</h3>
+                    <p>Enterprise-grade security with end-to-end encryption and compliance standards.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Data Analytics</h3>
+                    <p>Real-time insights and analytics to drive informed decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h3>Cloud Solutions</h3>
+                    <p>Scalable cloud infrastructure and services for modern applications.</p>
+                </div>
+                <div class="service-item">
+                    <h3>AI Integration</h3>
+                    <p>Seamless integration of artificial intelligence into your workflows.</p>
+                </div>
+                <div class="service-item">
+                    <h3>Consulting</h3>
+                    <p>Expert guidance on technology strategy and digital transformation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <p>Ready to transform your business with advanced technology?</p>
+            <button class="btn-primary">Contact Us</button>
+        </div>
+    </section>
+
+    <!-- Amazon Q Chat Widget -->
+    <div id="chat-widget" class="chat-widget">
+        <div id="chat-button" class="chat-button">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 13.54 2.36 14.99 3.01 16.28L2 22L7.72 20.99C9.01 21.64 10.46 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C10.74 20 9.54 19.75 8.46 19.3L6 20L6.7 17.54C6.25 16.46 6 15.26 6 14C6 8.48 8.48 6 12 6C15.52 6 18 8.48 18 12C18 15.52 15.52 18 12 18Z" fill="currentColor"/>
+                <circle cx="9" cy="12" r="1" fill="currentColor"/>
+                <circle cx="12" cy="12" r="1" fill="currentColor"/>
+                <circle cx="15" cy="12" r="1" fill="currentColor"/>
+            </svg>
+        </div>
+        
+        <div id="chat-panel" class="chat-panel">
+            <div class="chat-header">
+                <div class="chat-title">
+                    <div class="amazon-q-logo">Q</div>
+                    <span>Amazon Q Assistant</span>
+                </div>
+                <button id="chat-close" class="chat-close">×</button>
+            </div>
+            <div class="chat-content">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <p>👋 Hello! I'm Amazon Q, your AI assistant. How can I help you today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" placeholder="Ask me anything..." />
+                    <button id="send-button" class="send-button">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 21L23 12L2 3V10L17 12L2 14V21Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
