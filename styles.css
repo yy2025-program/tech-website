@@ -41,7 +41,7 @@ body {
 }
 
 .nav-logo h2 {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #ff9500 0%, #ff6b35 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -52,6 +52,29 @@ body {
     display: flex;
     gap: 2rem;
     align-items: center;
+}
+
+/* Language Switcher */
+.language-switcher {
+    margin-left: 1rem;
+}
+
+.lang-btn {
+    background: rgba(255, 149, 0, 0.1);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    color: #ff9500;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 149, 0, 0.2);
+    border-color: rgba(255, 149, 0, 0.5);
+    transform: translateY(-1px);
 }
 
 .nav-link {
@@ -146,51 +169,15 @@ body {
     }
 }
 
-/* Amazon-style Breadcrumb Header */
-.breadcrumb-header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 0.75rem 0;
-    margin-top: 80px;
-}
-
-.breadcrumb-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-}
-
-.breadcrumb-item {
-    color: #cccccc;
-    transition: color 0.3s ease;
-}
-
-.breadcrumb-item:not(.active):hover {
-    color: #667eea;
-    cursor: pointer;
-}
-
-.breadcrumb-item.active {
-    color: #667eea;
-    font-weight: 500;
-}
-
-.breadcrumb-separator {
-    margin: 0 0.5rem;
-    color: #666666;
-}
-
 /* Hero Section */
 .hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background: radial-gradient(ellipse at center, rgba(102, 126, 234, 0.1) 0%, rgba(10, 10, 10, 1) 70%);
+    background: radial-gradient(ellipse at center, rgba(255, 149, 0, 0.1) 0%, rgba(10, 10, 10, 1) 70%);
     position: relative;
     overflow: hidden;
+    padding-top: 80px;
 }
 
 .hero::before {
@@ -297,36 +284,43 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 2rem;
+    padding: 1.5rem;
     text-align: center;
     animation: float 6s ease-in-out infinite;
+    min-width: 120px;
 }
 
 .floating-card.card-1 {
-    top: 20%;
-    left: 10%;
+    top: 10%;
+    left: 5%;
     animation-delay: 0s;
 }
 
 .floating-card.card-2 {
-    top: 50%;
-    right: 20%;
+    top: 35%;
+    right: 15%;
     animation-delay: 2s;
 }
 
 .floating-card.card-3 {
-    bottom: 20%;
-    left: 30%;
+    bottom: 35%;
+    left: 25%;
     animation-delay: 4s;
+}
+
+.floating-card.card-4 {
+    bottom: 10%;
+    right: 5%;
+    animation-delay: 1s;
 }
 
 .card-icon {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
 }
 
 .floating-card h3 {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
 }
 
@@ -664,6 +658,10 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .nav-container {
+        position: relative;
+    }
+    
     .nav-menu {
         display: none;
         position: absolute;
@@ -676,6 +674,7 @@ body {
         flex-direction: column;
         padding: 1rem 0;
         gap: 0;
+        z-index: 1000;
     }
     
     .nav-menu.active {
@@ -720,6 +719,19 @@ body {
         padding: 0.5rem;
     }
     
+    .language-switcher {
+        position: absolute;
+        right: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+    }
+    
+    .lang-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
     .hero-container {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -737,11 +749,14 @@ body {
     .floating-card {
         position: relative;
         margin: 1rem 0;
+        display: inline-block;
+        width: 45%;
     }
     
     .floating-card.card-1,
     .floating-card.card-2,
-    .floating-card.card-3 {
+    .floating-card.card-3,
+    .floating-card.card-4 {
         position: relative;
         top: auto;
         left: auto;
@@ -749,22 +764,16 @@ body {
         bottom: auto;
     }
     
+    .floating-elements {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 1rem;
+    }
+    
     .chat-panel {
         width: 300px;
         height: 400px;
-    }
-    
-    .breadcrumb-container {
-        font-size: 0.8rem;
-    }
-    
-    .breadcrumb-separator {
-        margin: 0 0.3rem;
-    }
-    
-    .contact-info {
-        grid-template-columns: 1fr;
-        gap: 1rem;
     }
 }
 

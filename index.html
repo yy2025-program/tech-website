@@ -12,61 +12,44 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>TechPlatform</h2>
+                <h2>Amazon Q Platform</h2>
             </div>
             <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
             <div class="nav-menu" id="nav-menu">
-                <a href="#home" class="nav-link">首页</a>
+                <a href="#home" class="nav-link" data-en="Home" data-cn="首页">Home</a>
                 <div class="nav-dropdown">
-                    <a href="#products" class="nav-link dropdown-toggle">产品方案 ▼</a>
+                    <a href="#resources" class="nav-link dropdown-toggle" data-en="Resources ▼" data-cn="资源 ▼">Resources ▼</a>
                     <div class="dropdown-content">
-                        <a href="#ai-solutions">AI智能解决方案</a>
-                        <a href="#cloud-services">云计算服务</a>
-                        <a href="#data-analytics">数据分析平台</a>
-                        <a href="#automation">自动化工具</a>
+                        <a href="#fms-internal" data-en="FMS Internal Resources" data-cn="FMS内部资源">FMS Internal Resources</a>
+                        <a href="#fms-seller" data-en="FMS Seller Facing Resources" data-cn="FMS卖家资源">FMS Seller Facing Resources</a>
+                        <a href="#data-automation" data-en="Data and Automation" data-cn="数据与自动化">Data and Automation</a>
+                        <a href="#ai-assistant" data-en="AI Amazon Q Web Assistant" data-cn="AI Amazon Q网页助手">AI Amazon Q Web Assistant</a>
                     </div>
                 </div>
-                <div class="nav-dropdown">
-                    <a href="#technology" class="nav-link dropdown-toggle">技术栈 ▼</a>
-                    <div class="dropdown-content">
-                        <a href="#frontend">前端技术</a>
-                        <a href="#backend">后端架构</a>
-                        <a href="#database">数据库方案</a>
-                        <a href="#devops">DevOps工具</a>
-                    </div>
-                </div>
-                <a href="#cases" class="nav-link">成功案例</a>
-                <a href="#contact" class="nav-link">联系我们</a>
+                <a href="#solutions" class="nav-link" data-en="Solutions" data-cn="解决方案">Solutions</a>
+                <a href="#documentation" class="nav-link" data-en="Documentation" data-cn="文档">Documentation</a>
+            </div>
+            <div class="language-switcher">
+                <button id="lang-toggle" class="lang-btn">CN</button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section with Amazon-style header -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-container">
-            <!-- Amazon-style breadcrumb header -->
-            <div class="breadcrumb-header">
-                <div class="breadcrumb-container">
-                    <span class="breadcrumb-item">Technology</span>
-                    <span class="breadcrumb-separator">></span>
-                    <span class="breadcrumb-item">Advanced Solutions</span>
-                    <span class="breadcrumb-separator">></span>
-                    <span class="breadcrumb-item active">Platform</span>
-                </div>
-            </div>
-            
             <div class="hero-content">
                 <h1 class="hero-title">
-                    Building the Future with
-                    <span class="gradient-text">Advanced Technology</span>
+                    <span data-en="Building the Future with" data-cn="与">Building the Future with</span>
+                    <span class="gradient-text">Amazon Q</span>
                 </h1>
-                <p class="hero-description">
-                    Empowering innovation through cutting-edge solutions, intelligent automation, 
+                <p class="hero-description" data-en="Empowering innovation through cutting-edge AI solutions, intelligent automation, and seamless user experiences that transform the way we interact with technology." data-cn="通过前沿AI解决方案、智能自动化和无缝用户体验推动创新，改变我们与技术交互的方式。">
+                    Empowering innovation through cutting-edge AI solutions, intelligent automation, 
                     and seamless user experiences that transform the way we interact with technology.
                 </p>
                 <div class="hero-buttons">
-                    <button class="btn-primary">Get Started</button>
-                    <button class="btn-secondary">Learn More</button>
+                    <button class="btn-primary" data-en="Get Started" data-cn="开始使用">Get Started</button>
+                    <button class="btn-secondary" data-en="Learn More" data-cn="了解更多">Learn More</button>
                 </div>
             </div>
             
@@ -74,110 +57,116 @@
                 <div class="floating-elements">
                     <div class="floating-card card-1">
                         <div class="card-icon">🚀</div>
-                        <h3>Innovation</h3>
+                        <h3 data-en="Innovation" data-cn="创新">Innovation</h3>
                     </div>
                     <div class="floating-card card-2">
                         <div class="card-icon">🤖</div>
-                        <h3>AI Powered</h3>
+                        <h3 data-en="AI Powered" data-cn="AI驱动">AI Powered</h3>
                     </div>
                     <div class="floating-card card-3">
                         <div class="card-icon">⚡</div>
-                        <h3>Lightning Fast</h3>
+                        <h3 data-en="Lightning Fast" data-cn="闪电般快速">Lightning Fast</h3>
+                    </div>
+                    <div class="floating-card card-4">
+                        <div class="card-icon">🔒</div>
+                        <h3 data-en="Secure" data-cn="安全">Secure</h3>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="products" class="features">
+    <!-- Resources Section -->
+    <section id="resources" class="features">
         <div class="container">
-            <h2 class="section-title">核心产品方案</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>AI智能解决方案</h3>
-                    <p>基于深度学习和机器学习技术，为企业提供智能化决策支持和自动化流程优化。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">☁️</div>
-                    <h3>云计算服务平台</h3>
-                    <p>企业级云基础设施，支持弹性扩展、高可用性和全球部署的现代化云服务。</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>大数据分析平台</h3>
-                    <p>实时数据处理和可视化分析，帮助企业从海量数据中挖掘商业价值和洞察。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technology Section -->
-    <section id="technology" class="services">
-        <div class="container">
-            <h2 class="section-title">技术架构</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                    <h3>前端技术栈</h3>
-                    <p>React、Vue.js、TypeScript等现代前端框架，构建响应式用户界面。</p>
-                </div>
-                <div class="service-item">
-                    <h3>后端架构</h3>
-                    <p>微服务架构、容器化部署、API网关等企业级后端解决方案。</p>
-                </div>
-                <div class="service-item">
-                    <h3>数据库方案</h3>
-                    <p>关系型和非关系型数据库的混合架构，支持高并发和大数据处理。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cases Section -->
-    <section id="cases" class="features">
-        <div class="container">
-            <h2 class="section-title">成功案例</h2>
+            <h2 class="section-title" data-en="Amazon Q Resources" data-cn="Amazon Q 资源">Amazon Q Resources</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🏢</div>
-                    <h3>企业数字化转型</h3>
-                    <p>帮助传统制造业企业实现全流程数字化，提升运营效率300%。</p>
+                    <h3 data-en="FMS Internal Resources" data-cn="FMS内部资源">FMS Internal Resources</h3>
+                    <p data-en="Comprehensive internal tools and documentation for FMS team members to streamline operations and enhance productivity." data-cn="为FMS团队成员提供全面的内部工具和文档，以简化操作并提高生产力。">
+                        Comprehensive internal tools and documentation for FMS team members to streamline operations and enhance productivity.
+                    </p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🛒</div>
-                    <h3>电商平台优化</h3>
-                    <p>为大型电商平台提供AI推荐系统，用户转化率提升150%。</p>
+                    <h3 data-en="FMS Seller Facing Resources" data-cn="FMS卖家资源">FMS Seller Facing Resources</h3>
+                    <p data-en="Dedicated resources and support materials designed specifically for sellers to optimize their fulfillment experience." data-cn="专为卖家设计的专用资源和支持材料，以优化其履行体验。">
+                        Dedicated resources and support materials designed specifically for sellers to optimize their fulfillment experience.
+                    </p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🏥</div>
-                    <h3>智慧医疗系统</h3>
-                    <p>构建智能诊断辅助系统，提高医疗诊断准确率和效率。</p>
+                    <div class="feature-icon">📊</div>
+                    <h3 data-en="Data and Automation" data-cn="数据与自动化">Data and Automation</h3>
+                    <p data-en="Advanced data analytics and automation tools to drive intelligent decision-making and process optimization." data-cn="先进的数据分析和自动化工具，推动智能决策和流程优化。">
+                        Advanced data analytics and automation tools to drive intelligent decision-making and process optimization.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 data-en="AI Amazon Q Web Assistant" data-cn="AI Amazon Q网页助手">AI Amazon Q Web Assistant</h3>
+                    <p data-en="Intelligent AI-powered web assistant providing instant support, answers, and guidance for all your queries." data-cn="智能AI驱动的网页助手，为您的所有查询提供即时支持、答案和指导。">
+                        Intelligent AI-powered web assistant providing instant support, answers, and guidance for all your queries.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <!-- Solutions Section -->
+    <section id="solutions" class="services">
         <div class="container">
-            <h2 class="section-title">联系我们</h2>
-            <p>准备好用先进技术改变您的业务了吗？让我们一起探讨解决方案！</p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h4>📧 邮箱联系</h4>
-                    <p>business@techplatform.com</p>
+            <h2 class="section-title" data-en="Amazon Q Solutions" data-cn="Amazon Q 解决方案">Amazon Q Solutions</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h3 data-en="Intelligent Query Processing" data-cn="智能查询处理">Intelligent Query Processing</h3>
+                    <p data-en="Advanced natural language processing to understand and respond to complex queries with precision and context." data-cn="先进的自然语言处理技术，精确理解并响应复杂查询。">
+                        Advanced natural language processing to understand and respond to complex queries with precision and context.
+                    </p>
                 </div>
-                <div class="contact-item">
-                    <h4>📱 电话咨询</h4>
-                    <p>400-888-9999</p>
+                <div class="service-item">
+                    <h3 data-en="Real-time Knowledge Base" data-cn="实时知识库">Real-time Knowledge Base</h3>
+                    <p data-en="Dynamic knowledge repository that continuously updates with the latest information and best practices." data-cn="动态知识库，持续更新最新信息和最佳实践。">
+                        Dynamic knowledge repository that continuously updates with the latest information and best practices.
+                    </p>
                 </div>
-                <div class="contact-item">
-                    <h4>💬 在线咨询</h4>
-                    <p>点击右下角聊天图标</p>
+                <div class="service-item">
+                    <h3 data-en="Seamless Integration" data-cn="无缝集成">Seamless Integration</h3>
+                    <p data-en="Easy integration with existing systems and workflows to enhance productivity without disruption." data-cn="与现有系统和工作流程轻松集成，在不中断的情况下提高生产力。">
+                        Easy integration with existing systems and workflows to enhance productivity without disruption.
+                    </p>
                 </div>
             </div>
-            <button class="btn-primary">立即咨询</button>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="documentation" class="features">
+        <div class="container">
+            <h2 class="section-title" data-en="Documentation & Support" data-cn="文档与支持">Documentation & Support</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3 data-en="API Documentation" data-cn="API文档">API Documentation</h3>
+                    <p data-en="Comprehensive API documentation with examples, best practices, and integration guides." data-cn="包含示例、最佳实践和集成指南的全面API文档。">
+                        Comprehensive API documentation with examples, best practices, and integration guides.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <h3 data-en="Training Resources" data-cn="培训资源">Training Resources</h3>
+                    <p data-en="Interactive tutorials, video guides, and hands-on workshops to master Amazon Q capabilities." data-cn="交互式教程、视频指南和实践研讨会，掌握Amazon Q功能。">
+                        Interactive tutorials, video guides, and hands-on workshops to master Amazon Q capabilities.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3 data-en="Troubleshooting Guide" data-cn="故障排除指南">Troubleshooting Guide</h3>
+                    <p data-en="Step-by-step troubleshooting guides and FAQ to resolve common issues quickly and efficiently." data-cn="逐步故障排除指南和常见问题解答，快速高效地解决常见问题。">
+                        Step-by-step troubleshooting guides and FAQ to resolve common issues quickly and efficiently.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 

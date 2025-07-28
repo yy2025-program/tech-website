@@ -1,3 +1,42 @@
+// Language switching functionality
+class LanguageSwitcher {
+    constructor() {
+        this.currentLang = 'en';
+        this.langToggle = document.getElementById('lang-toggle');
+        this.init();
+    }
+    
+    init() {
+        this.langToggle.addEventListener('click', () => this.toggleLanguage());
+        this.updateContent();
+    }
+    
+    toggleLanguage() {
+        this.currentLang = this.currentLang === 'en' ? 'cn' : 'en';
+        this.updateContent();
+        this.updateToggleButton();
+    }
+    
+    updateContent() {
+        const elements = document.querySelectorAll('[data-en][data-cn]');
+        elements.forEach(element => {
+            const text = this.currentLang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-cn');
+            if (text) {
+                element.textContent = text;
+            }
+        });
+    }
+    
+    updateToggleButton() {
+        this.langToggle.textContent = this.currentLang === 'en' ? 'CN' : 'EN';
+    }
+}
+
+// Initialize language switcher when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new LanguageSwitcher();
+});
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -154,25 +193,25 @@ class ChatWidget {
     
     generateBotResponse(userMessage) {
         const responses = {
-            'hello': '您好！我是Amazon Q，您的AI助手。我可以帮助您了解AWS服务、编程问题和一般技术咨询。',
-            '你好': '您好！我是Amazon Q，您的AI助手。我可以帮助您了解AWS服务、编程问题和一般技术咨询。',
-            'help': '我可以为您提供以下帮助：\n• AWS服务和最佳实践\n• 代码审查和调试\n• 架构建议\n• 技术文档\n• 还有更多！',
-            '帮助': '我可以为您提供以下帮助：\n• AWS服务和最佳实践\n• 代码审查和调试\n• 架构建议\n• 技术文档\n• 还有更多！',
-            'aws': '我很乐意帮助您了解AWS！我可以协助您使用EC2、S3、Lambda、RDS等多种服务。您想讨论哪个具体的AWS主题？',
-            'code': '我可以帮助您处理多种编程语言的代码，包括Python、JavaScript、Java、C++等。请随时分享您的代码或提出编程问题！',
-            '编程': '我可以帮助您处理多种编程语言的代码，包括Python、JavaScript、Java、C++等。请随时分享您的代码或提出编程问题！',
-            'website': '这个网站展示了先进的技术解决方案，采用现代科技感设计。它使用HTML、CSS和JavaScript构建，可以托管在GitHub Pages上。',
-            '网站': '这个网站展示了先进的技术解决方案，采用现代科技感设计。它使用HTML、CSS和JavaScript构建，可以托管在GitHub Pages上。',
-            'github': '要在GitHub Pages上托管此网站：\n1. 创建新仓库\n2. 上传这些文件\n3. 转到设置 > Pages\n4. 选择源分支\n5. 您的网站将在 username.github.io/repository-name 可用',
-            '产品': '我们的核心产品包括：\n• AI智能解决方案\n• 云计算服务平台\n• 大数据分析平台\n• 自动化工具\n您想了解哪个产品的详细信息？',
-            '技术': '我们的技术栈包括：\n• 前端：React、Vue.js、TypeScript\n• 后端：微服务架构、容器化部署\n• 数据库：混合架构支持\n• DevOps：自动化部署工具',
-            '联系': '您可以通过以下方式联系我们：\n📧 邮箱：business@techplatform.com\n📱 电话：400-888-9999\n💬 或继续在这里与我对话！'
+            'hello': 'Hello! I\'m Amazon Q, your AI assistant. I can help you with FMS resources, data automation, and general technology inquiries.',
+            '你好': '您好！我是Amazon Q，您的AI助手。我可以帮助您了解FMS资源、数据自动化和一般技术咨询。',
+            'help': 'I can assist you with:\n• FMS Internal Resources\n• FMS Seller Facing Resources\n• Data and Automation tools\n• AI Amazon Q Web Assistant\n• Technical documentation',
+            '帮助': '我可以为您提供以下帮助：\n• FMS内部资源\n• FMS卖家资源\n• 数据与自动化工具\n• AI Amazon Q网页助手\n• 技术文档',
+            'fms': 'I can help you with FMS resources! We have both internal resources for team members and seller-facing resources. Which would you like to know more about?',
+            'resources': 'Our main resource categories include:\n• FMS Internal Resources - for team members\n• FMS Seller Facing Resources - for sellers\n• Data and Automation - analytics tools\n• AI Amazon Q Web Assistant - intelligent support',
+            '资源': '我们的主要资源类别包括：\n• FMS内部资源 - 面向团队成员\n• FMS卖家资源 - 面向卖家\n• 数据与自动化 - 分析工具\n• AI Amazon Q网页助手 - 智能支持',
+            'automation': 'Our Data and Automation tools provide advanced analytics and process optimization. They help drive intelligent decision-making across FMS operations.',
+            '自动化': '我们的数据与自动化工具提供先进的分析和流程优化功能，帮助推动FMS运营中的智能决策。',
+            'documentation': 'We provide comprehensive documentation including:\n• API Documentation with examples\n• Training Resources and tutorials\n• Troubleshooting guides and FAQ',
+            '文档': '我们提供全面的文档，包括：\n• 带示例的API文档\n• 培训资源和教程\n• 故障排除指南和常见问题解答',
+            'amazon q': 'Amazon Q is an AI-powered assistant designed to help with FMS operations, providing intelligent responses and seamless integration with existing workflows.',
+            'solutions': 'Our Amazon Q solutions include:\n• Intelligent Query Processing\n• Real-time Knowledge Base\n• Seamless Integration with existing systems'
         };
         
         let response = this.findBestResponse(userMessage.toLowerCase(), responses);
         
         if (!response) {
-            response = '我是Amazon Q，很高兴为您服务！请告诉我您需要什么帮助？我可以协助您了解AWS服务、编程、架构设计等技术问题。';
+            response = 'I\'m Amazon Q, here to help with FMS resources and operations! Please let me know what specific area you\'d like assistance with - FMS resources, data automation, or technical documentation.';
         }
         
         this.addMessage(response, 'bot');
