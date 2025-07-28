@@ -1,6 +1,6 @@
 # Advanced Technology Platform
 
-一个具有高级科技感的现代网站，灵感来源于 Anthropic 的设计风格，集成了 Amazon Q 聊天功能。
+一个具有高级科技感的现代网站，灵感来源于Tech 的设计风格，集成了 Amazon Q 聊天功能。
 
 ## 功能特点
 
