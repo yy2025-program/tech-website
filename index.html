@@ -14,11 +14,29 @@
             <div class="nav-logo">
                 <h2>TechPlatform</h2>
             </div>
-            <div class="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">首页</a>
+                <div class="nav-dropdown">
+                    <a href="#products" class="nav-link dropdown-toggle">产品方案 ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#ai-solutions">AI智能解决方案</a>
+                        <a href="#cloud-services">云计算服务</a>
+                        <a href="#data-analytics">数据分析平台</a>
+                        <a href="#automation">自动化工具</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#technology" class="nav-link dropdown-toggle">技术栈 ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#frontend">前端技术</a>
+                        <a href="#backend">后端架构</a>
+                        <a href="#database">数据库方案</a>
+                        <a href="#devops">DevOps工具</a>
+                    </div>
+                </div>
+                <a href="#cases" class="nav-link">成功案例</a>
+                <a href="#contact" class="nav-link">联系我们</a>
             </div>
         </div>
     </nav>
@@ -72,45 +90,69 @@
     </section>
 
     <!-- Features Section -->
-    <section id="about" class="features">
+    <section id="products" class="features">
         <div class="container">
-            <h2 class="section-title">Advanced Capabilities</h2>
+            <h2 class="section-title">核心产品方案</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🧠</div>
-                    <h3>Intelligent Systems</h3>
-                    <p>Leverage advanced AI and machine learning to create intelligent, adaptive solutions.</p>
+                    <h3>AI智能解决方案</h3>
+                    <p>基于深度学习和机器学习技术，为企业提供智能化决策支持和自动化流程优化。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
-                    <h3>Secure Architecture</h3>
-                    <p>Enterprise-grade security with end-to-end encryption and compliance standards.</p>
+                    <div class="feature-icon">☁️</div>
+                    <h3>云计算服务平台</h3>
+                    <p>企业级云基础设施，支持弹性扩展、高可用性和全球部署的现代化云服务。</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
-                    <h3>Data Analytics</h3>
-                    <p>Real-time insights and analytics to drive informed decision-making.</p>
+                    <h3>大数据分析平台</h3>
+                    <p>实时数据处理和可视化分析，帮助企业从海量数据中挖掘商业价值和洞察。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
+    <!-- Technology Section -->
+    <section id="technology" class="services">
         <div class="container">
-            <h2 class="section-title">Our Services</h2>
+            <h2 class="section-title">技术架构</h2>
             <div class="services-grid">
                 <div class="service-item">
-                    <h3>Cloud Solutions</h3>
-                    <p>Scalable cloud infrastructure and services for modern applications.</p>
+                    <h3>前端技术栈</h3>
+                    <p>React、Vue.js、TypeScript等现代前端框架，构建响应式用户界面。</p>
                 </div>
                 <div class="service-item">
-                    <h3>AI Integration</h3>
-                    <p>Seamless integration of artificial intelligence into your workflows.</p>
+                    <h3>后端架构</h3>
+                    <p>微服务架构、容器化部署、API网关等企业级后端解决方案。</p>
                 </div>
                 <div class="service-item">
-                    <h3>Consulting</h3>
-                    <p>Expert guidance on technology strategy and digital transformation.</p>
+                    <h3>数据库方案</h3>
+                    <p>关系型和非关系型数据库的混合架构，支持高并发和大数据处理。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cases Section -->
+    <section id="cases" class="features">
+        <div class="container">
+            <h2 class="section-title">成功案例</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>企业数字化转型</h3>
+                    <p>帮助传统制造业企业实现全流程数字化，提升运营效率300%。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h3>电商平台优化</h3>
+                    <p>为大型电商平台提供AI推荐系统，用户转化率提升150%。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏥</div>
+                    <h3>智慧医疗系统</h3>
+                    <p>构建智能诊断辅助系统，提高医疗诊断准确率和效率。</p>
                 </div>
             </div>
         </div>
@@ -119,9 +161,23 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Get in Touch</h2>
-            <p>Ready to transform your business with advanced technology?</p>
-            <button class="btn-primary">Contact Us</button>
+            <h2 class="section-title">联系我们</h2>
+            <p>准备好用先进技术改变您的业务了吗？让我们一起探讨解决方案！</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h4>📧 邮箱联系</h4>
+                    <p>business@techplatform.com</p>
+                </div>
+                <div class="contact-item">
+                    <h4>📱 电话咨询</h4>
+                    <p>400-888-9999</p>
+                </div>
+                <div class="contact-item">
+                    <h4>💬 在线咨询</h4>
+                    <p>点击右下角聊天图标</p>
+                </div>
+            </div>
+            <button class="btn-primary">立即咨询</button>
         </div>
     </section>
 

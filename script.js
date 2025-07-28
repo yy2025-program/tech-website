@@ -8,7 +8,64 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
+            
+            // Close dropdown menus after clicking
+            document.querySelectorAll('.dropdown-content').forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
         }
+    });
+});
+
+// Dropdown menu functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdowns = document.querySelectorAll('.nav-dropdown');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    // Mobile menu toggle
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    }
+    
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        const content = dropdown.querySelector('.dropdown-content');
+        
+        // Mobile touch support
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Close other dropdowns
+            dropdowns.forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.querySelector('.dropdown-content').style.display = 'none';
+                }
+            });
+            
+            // Toggle current dropdown
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+                content.style.display = 'none';
+            }
+        });
+    });
+    
+    // Close mobile menu when clicking on links
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
     });
 });
 
@@ -97,18 +154,25 @@ class ChatWidget {
     
     generateBotResponse(userMessage) {
         const responses = {
-            'hello': 'Hello! I\'m Amazon Q, your AI assistant. I can help you with AWS services, coding questions, and general technology inquiries.',
-            'help': 'I can assist you with:\n• AWS services and best practices\n• Code review and debugging\n• Architecture recommendations\n• Technical documentation\n• And much more!',
-            'aws': 'I\'d be happy to help with AWS! I can assist with services like EC2, S3, Lambda, RDS, and many others. What specific AWS topic would you like to discuss?',
-            'code': 'I can help with coding in various languages including Python, JavaScript, Java, C++, and more. Feel free to share your code or ask programming questions!',
-            'website': 'This website showcases advanced technology solutions with a modern, sci-fi inspired design. It\'s built with HTML, CSS, and JavaScript, and can be hosted on GitHub Pages.',
-            'github': 'To host this website on GitHub Pages:\n1. Create a new repository\n2. Upload these files\n3. Go to Settings > Pages\n4. Select source branch\n5. Your site will be available at username.github.io/repository-name'
+            'hello': '您好！我是Amazon Q，您的AI助手。我可以帮助您了解AWS服务、编程问题和一般技术咨询。',
+            '你好': '您好！我是Amazon Q，您的AI助手。我可以帮助您了解AWS服务、编程问题和一般技术咨询。',
+            'help': '我可以为您提供以下帮助：\n• AWS服务和最佳实践\n• 代码审查和调试\n• 架构建议\n• 技术文档\n• 还有更多！',
+            '帮助': '我可以为您提供以下帮助：\n• AWS服务和最佳实践\n• 代码审查和调试\n• 架构建议\n• 技术文档\n• 还有更多！',
+            'aws': '我很乐意帮助您了解AWS！我可以协助您使用EC2、S3、Lambda、RDS等多种服务。您想讨论哪个具体的AWS主题？',
+            'code': '我可以帮助您处理多种编程语言的代码，包括Python、JavaScript、Java、C++等。请随时分享您的代码或提出编程问题！',
+            '编程': '我可以帮助您处理多种编程语言的代码，包括Python、JavaScript、Java、C++等。请随时分享您的代码或提出编程问题！',
+            'website': '这个网站展示了先进的技术解决方案，采用现代科技感设计。它使用HTML、CSS和JavaScript构建，可以托管在GitHub Pages上。',
+            '网站': '这个网站展示了先进的技术解决方案，采用现代科技感设计。它使用HTML、CSS和JavaScript构建，可以托管在GitHub Pages上。',
+            'github': '要在GitHub Pages上托管此网站：\n1. 创建新仓库\n2. 上传这些文件\n3. 转到设置 > Pages\n4. 选择源分支\n5. 您的网站将在 username.github.io/repository-name 可用',
+            '产品': '我们的核心产品包括：\n• AI智能解决方案\n• 云计算服务平台\n• 大数据分析平台\n• 自动化工具\n您想了解哪个产品的详细信息？',
+            '技术': '我们的技术栈包括：\n• 前端：React、Vue.js、TypeScript\n• 后端：微服务架构、容器化部署\n• 数据库：混合架构支持\n• DevOps：自动化部署工具',
+            '联系': '您可以通过以下方式联系我们：\n📧 邮箱：business@techplatform.com\n📱 电话：400-888-9999\n💬 或继续在这里与我对话！'
         };
         
         let response = this.findBestResponse(userMessage.toLowerCase(), responses);
         
         if (!response) {
-            response = 'I\'m Amazon Q, and I\'m here to help! Could you please provide more details about what you\'d like assistance with? I can help with AWS services, coding, architecture, and more.';
+            response = '我是Amazon Q，很高兴为您服务！请告诉我您需要什么帮助？我可以协助您了解AWS服务、编程、架构设计等技术问题。';
         }
         
         this.addMessage(response, 'bot');
