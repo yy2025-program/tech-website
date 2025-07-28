@@ -12,22 +12,37 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>Amazon Q Platform</h2>
+                <h2>Logistics Hub</h2>
             </div>
             <button class="mobile-menu-toggle" id="mobile-menu-toggle">☰</button>
             <div class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link" data-en="Home" data-cn="首页">Home</a>
                 <div class="nav-dropdown">
-                    <a href="#resources" class="nav-link dropdown-toggle" data-en="Resources ▼" data-cn="资源 ▼">Resources ▼</a>
+                    <a href="#fms-internal" class="nav-link dropdown-toggle" data-en="FMS Internal Resources ▼" data-cn="FMS内部资源 ▼">FMS Internal Resources ▼</a>
                     <div class="dropdown-content">
-                        <a href="#fms-internal" data-en="FMS Internal Resources" data-cn="FMS内部资源">FMS Internal Resources</a>
-                        <a href="#fms-seller" data-en="FMS Seller Facing Resources" data-cn="FMS卖家资源">FMS Seller Facing Resources</a>
-                        <a href="#data-automation" data-en="Data and Automation" data-cn="数据与自动化">Data and Automation</a>
-                        <a href="#ai-assistant" data-en="AI Amazon Q Web Assistant" data-cn="AI Amazon Q网页助手">AI Amazon Q Web Assistant</a>
+                        <a href="#internal-tools" data-en="Internal Tools" data-cn="内部工具">Internal Tools</a>
+                        <a href="#team-resources" data-en="Team Resources" data-cn="团队资源">Team Resources</a>
+                        <a href="#process-guides" data-en="Process Guides" data-cn="流程指南">Process Guides</a>
                     </div>
                 </div>
-                <a href="#solutions" class="nav-link" data-en="Solutions" data-cn="解决方案">Solutions</a>
-                <a href="#documentation" class="nav-link" data-en="Documentation" data-cn="文档">Documentation</a>
+                <div class="nav-dropdown">
+                    <a href="#fms-seller" class="nav-link dropdown-toggle" data-en="FMS Seller Facing Resources ▼" data-cn="FMS卖家资源 ▼">FMS Seller Facing Resources ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#seller-tools" data-en="Seller Tools" data-cn="卖家工具">Seller Tools</a>
+                        <a href="#support-materials" data-en="Support Materials" data-cn="支持材料">Support Materials</a>
+                        <a href="#seller-guides" data-en="Seller Guides" data-cn="卖家指南">Seller Guides</a>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <a href="#data-automation" class="nav-link dropdown-toggle" data-en="Data and Automation ▼" data-cn="数据与自动化 ▼">Data and Automation ▼</a>
+                    <div class="dropdown-content">
+                        <a href="#analytics-tools" data-en="Analytics Tools" data-cn="分析工具">Analytics Tools</a>
+                        <a href="#automation-systems" data-en="Automation Systems" data-cn="自动化系统">Automation Systems</a>
+                        <a href="#data-insights" data-en="Data Insights" data-cn="数据洞察">Data Insights</a>
+                    </div>
+                </div>
+                <a href="#best-practice" class="nav-link" data-en="Best Practice" data-cn="最佳实践">Best Practice</a>
+                <a href="#gemba-walk" class="nav-link" data-en="Gemba Walk" data-cn="现场走访">Gemba Walk</a>
             </div>
             <div class="language-switcher">
                 <button id="lang-toggle" class="lang-btn">CN</button>
@@ -40,7 +55,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1 class="hero-title">
-                    <span data-en="Building the Future with" data-cn="与">Building the Future with</span>
+                    <span data-en="Building the Future with " data-cn="与 ">Building the Future with </span>
                     <span class="gradient-text">Amazon Q</span>
                 </h1>
                 <p class="hero-description" data-en="Empowering innovation through cutting-edge AI solutions, intelligent automation, and seamless user experiences that transform the way we interact with technology." data-cn="通过前沿AI解决方案、智能自动化和无缝用户体验推动创新，改变我们与技术交互的方式。">
@@ -79,7 +94,7 @@
     <!-- Resources Section -->
     <section id="resources" class="features">
         <div class="container">
-            <h2 class="section-title" data-en="Amazon Q Resources" data-cn="Amazon Q 资源">Amazon Q Resources</h2>
+            <h2 class="section-title" data-en="Resources" data-cn="资源">Resources</h2>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">🏢</div>
@@ -102,68 +117,61 @@
                         Advanced data analytics and automation tools to drive intelligent decision-making and process optimization.
                     </p>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3 data-en="AI Amazon Q Web Assistant" data-cn="AI Amazon Q网页助手">AI Amazon Q Web Assistant</h3>
-                    <p data-en="Intelligent AI-powered web assistant providing instant support, answers, and guidance for all your queries." data-cn="智能AI驱动的网页助手，为您的所有查询提供即时支持、答案和指导。">
-                        Intelligent AI-powered web assistant providing instant support, answers, and guidance for all your queries.
-                    </p>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Solutions Section -->
-    <section id="solutions" class="services">
+    <!-- Best Practice Section -->
+    <section id="best-practice" class="services">
         <div class="container">
-            <h2 class="section-title" data-en="Amazon Q Solutions" data-cn="Amazon Q 解决方案">Amazon Q Solutions</h2>
+            <h2 class="section-title" data-en="Best Practice" data-cn="最佳实践">Best Practice</h2>
             <div class="services-grid">
                 <div class="service-item">
-                    <h3 data-en="Intelligent Query Processing" data-cn="智能查询处理">Intelligent Query Processing</h3>
-                    <p data-en="Advanced natural language processing to understand and respond to complex queries with precision and context." data-cn="先进的自然语言处理技术，精确理解并响应复杂查询。">
-                        Advanced natural language processing to understand and respond to complex queries with precision and context.
+                    <h3 data-en="Operational Excellence" data-cn="运营卓越">Operational Excellence</h3>
+                    <p data-en="Proven methodologies and frameworks to achieve operational excellence in logistics and fulfillment processes." data-cn="经过验证的方法论和框架，在物流和履行流程中实现运营卓越。">
+                        Proven methodologies and frameworks to achieve operational excellence in logistics and fulfillment processes.
                     </p>
                 </div>
                 <div class="service-item">
-                    <h3 data-en="Real-time Knowledge Base" data-cn="实时知识库">Real-time Knowledge Base</h3>
-                    <p data-en="Dynamic knowledge repository that continuously updates with the latest information and best practices." data-cn="动态知识库，持续更新最新信息和最佳实践。">
-                        Dynamic knowledge repository that continuously updates with the latest information and best practices.
+                    <h3 data-en="Process Optimization" data-cn="流程优化">Process Optimization</h3>
+                    <p data-en="Best practices for continuous improvement and process optimization to enhance efficiency and reduce waste." data-cn="持续改进和流程优化的最佳实践，提高效率并减少浪费。">
+                        Best practices for continuous improvement and process optimization to enhance efficiency and reduce waste.
                     </p>
                 </div>
                 <div class="service-item">
-                    <h3 data-en="Seamless Integration" data-cn="无缝集成">Seamless Integration</h3>
-                    <p data-en="Easy integration with existing systems and workflows to enhance productivity without disruption." data-cn="与现有系统和工作流程轻松集成，在不中断的情况下提高生产力。">
-                        Easy integration with existing systems and workflows to enhance productivity without disruption.
+                    <h3 data-en="Quality Management" data-cn="质量管理">Quality Management</h3>
+                    <p data-en="Industry-leading quality management practices to ensure consistent service delivery and customer satisfaction." data-cn="行业领先的质量管理实践，确保一致的服务交付和客户满意度。">
+                        Industry-leading quality management practices to ensure consistent service delivery and customer satisfaction.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Documentation Section -->
-    <section id="documentation" class="features">
+    <!-- Gemba Walk Section -->
+    <section id="gemba-walk" class="features">
         <div class="container">
-            <h2 class="section-title" data-en="Documentation & Support" data-cn="文档与支持">Documentation & Support</h2>
+            <h2 class="section-title" data-en="Gemba Walk" data-cn="现场走访">Gemba Walk</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3 data-en="API Documentation" data-cn="API文档">API Documentation</h3>
-                    <p data-en="Comprehensive API documentation with examples, best practices, and integration guides." data-cn="包含示例、最佳实践和集成指南的全面API文档。">
-                        Comprehensive API documentation with examples, best practices, and integration guides.
+                    <div class="feature-icon">👁️</div>
+                    <h3 data-en="Observation Techniques" data-cn="观察技巧">Observation Techniques</h3>
+                    <p data-en="Learn effective observation techniques to identify improvement opportunities and understand actual work processes." data-cn="学习有效的观察技巧，识别改进机会并了解实际工作流程。">
+                        Learn effective observation techniques to identify improvement opportunities and understand actual work processes.
                     </p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎓</div>
-                    <h3 data-en="Training Resources" data-cn="培训资源">Training Resources</h3>
-                    <p data-en="Interactive tutorials, video guides, and hands-on workshops to master Amazon Q capabilities." data-cn="交互式教程、视频指南和实践研讨会，掌握Amazon Q功能。">
-                        Interactive tutorials, video guides, and hands-on workshops to master Amazon Q capabilities.
+                    <div class="feature-icon">🚶</div>
+                    <h3 data-en="Walk Methodology" data-cn="走访方法论">Walk Methodology</h3>
+                    <p data-en="Structured approach to conducting gemba walks for maximum insight and minimal disruption to operations." data-cn="进行现场走访的结构化方法，以获得最大洞察并最小化对运营的干扰。">
+                        Structured approach to conducting gemba walks for maximum insight and minimal disruption to operations.
                     </p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔧</div>
-                    <h3 data-en="Troubleshooting Guide" data-cn="故障排除指南">Troubleshooting Guide</h3>
-                    <p data-en="Step-by-step troubleshooting guides and FAQ to resolve common issues quickly and efficiently." data-cn="逐步故障排除指南和常见问题解答，快速高效地解决常见问题。">
-                        Step-by-step troubleshooting guides and FAQ to resolve common issues quickly and efficiently.
+                    <div class="feature-icon">📋</div>
+                    <h3 data-en="Action Planning" data-cn="行动计划">Action Planning</h3>
+                    <p data-en="Transform observations into actionable improvement plans with clear timelines and measurable outcomes." data-cn="将观察结果转化为可行的改进计划，具有明确的时间表和可衡量的结果。">
+                        Transform observations into actionable improvement plans with clear timelines and measurable outcomes.
                     </p>
                 </div>
             </div>

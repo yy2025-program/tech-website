@@ -7,8 +7,11 @@ class LanguageSwitcher {
     }
     
     init() {
-        this.langToggle.addEventListener('click', () => this.toggleLanguage());
+        if (this.langToggle) {
+            this.langToggle.addEventListener('click', () => this.toggleLanguage());
+        }
         this.updateContent();
+        this.updateToggleButton();
     }
     
     toggleLanguage() {
@@ -22,13 +25,20 @@ class LanguageSwitcher {
         elements.forEach(element => {
             const text = this.currentLang === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-cn');
             if (text) {
-                element.textContent = text;
+                // Handle different element types
+                if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                    element.placeholder = text;
+                } else {
+                    element.textContent = text;
+                }
             }
         });
     }
     
     updateToggleButton() {
-        this.langToggle.textContent = this.currentLang === 'en' ? 'CN' : 'EN';
+        if (this.langToggle) {
+            this.langToggle.textContent = this.currentLang === 'en' ? 'CN' : 'EN';
+        }
     }
 }
 
@@ -193,25 +203,27 @@ class ChatWidget {
     
     generateBotResponse(userMessage) {
         const responses = {
-            'hello': 'Hello! I\'m Amazon Q, your AI assistant. I can help you with FMS resources, data automation, and general technology inquiries.',
-            '你好': '您好！我是Amazon Q，您的AI助手。我可以帮助您了解FMS资源、数据自动化和一般技术咨询。',
-            'help': 'I can assist you with:\n• FMS Internal Resources\n• FMS Seller Facing Resources\n• Data and Automation tools\n• AI Amazon Q Web Assistant\n• Technical documentation',
-            '帮助': '我可以为您提供以下帮助：\n• FMS内部资源\n• FMS卖家资源\n• 数据与自动化工具\n• AI Amazon Q网页助手\n• 技术文档',
-            'fms': 'I can help you with FMS resources! We have both internal resources for team members and seller-facing resources. Which would you like to know more about?',
-            'resources': 'Our main resource categories include:\n• FMS Internal Resources - for team members\n• FMS Seller Facing Resources - for sellers\n• Data and Automation - analytics tools\n• AI Amazon Q Web Assistant - intelligent support',
-            '资源': '我们的主要资源类别包括：\n• FMS内部资源 - 面向团队成员\n• FMS卖家资源 - 面向卖家\n• 数据与自动化 - 分析工具\n• AI Amazon Q网页助手 - 智能支持',
-            'automation': 'Our Data and Automation tools provide advanced analytics and process optimization. They help drive intelligent decision-making across FMS operations.',
-            '自动化': '我们的数据与自动化工具提供先进的分析和流程优化功能，帮助推动FMS运营中的智能决策。',
-            'documentation': 'We provide comprehensive documentation including:\n• API Documentation with examples\n• Training Resources and tutorials\n• Troubleshooting guides and FAQ',
-            '文档': '我们提供全面的文档，包括：\n• 带示例的API文档\n• 培训资源和教程\n• 故障排除指南和常见问题解答',
-            'amazon q': 'Amazon Q is an AI-powered assistant designed to help with FMS operations, providing intelligent responses and seamless integration with existing workflows.',
-            'solutions': 'Our Amazon Q solutions include:\n• Intelligent Query Processing\n• Real-time Knowledge Base\n• Seamless Integration with existing systems'
+            'hello': 'Hello! I\'m Amazon Q, your AI assistant for the Logistics Hub. I can help you with FMS resources, best practices, and gemba walk guidance.',
+            '你好': '您好！我是Amazon Q，物流中心的AI助手。我可以帮助您了解FMS资源、最佳实践和现场走访指导。',
+            'help': 'I can assist you with:\n• FMS Internal Resources\n• FMS Seller Facing Resources\n• Data and Automation\n• Best Practices\n• Gemba Walk methodology',
+            '帮助': '我可以为您提供以下帮助：\n• FMS内部资源\n• FMS卖家资源\n• 数据与自动化\n• 最佳实践\n• 现场走访方法论',
+            'fms': 'I can help you with FMS resources! We have internal resources for team members and seller-facing resources. Which would you like to know more about?',
+            'resources': 'Our main resource categories include:\n• FMS Internal Resources - tools and documentation for team members\n• FMS Seller Facing Resources - support materials for sellers\n• Data and Automation - analytics and automation tools',
+            '资源': '我们的主要资源类别包括：\n• FMS内部资源 - 面向团队成员的工具和文档\n• FMS卖家资源 - 面向卖家的支持材料\n• 数据与自动化 - 分析和自动化工具',
+            'best practice': 'Our best practices cover:\n• Operational Excellence\n• Process Optimization\n• Quality Management\nThese help achieve excellence in logistics operations.',
+            '最佳实践': '我们的最佳实践涵盖：\n• 运营卓越\n• 流程优化\n• 质量管理\n这些帮助在物流运营中实现卓越。',
+            'gemba walk': 'Gemba Walk methodology includes:\n• Observation Techniques\n• Walk Methodology\n• Action Planning\nIt helps identify improvement opportunities through direct observation.',
+            '现场走访': '现场走访方法论包括：\n• 观察技巧\n• 走访方法论\n• 行动计划\n通过直接观察帮助识别改进机会。',
+            'automation': 'Our Data and Automation tools provide advanced analytics and process optimization to drive intelligent decision-making across logistics operations.',
+            '自动化': '我们的数据与自动化工具提供先进的分析和流程优化功能，推动物流运营中的智能决策。',
+            'logistics': 'The Logistics Hub provides comprehensive resources for FMS operations, including internal tools, seller resources, best practices, and gemba walk guidance.',
+            '物流': '物流中心为FMS运营提供全面资源，包括内部工具、卖家资源、最佳实践和现场走访指导。'
         };
         
         let response = this.findBestResponse(userMessage.toLowerCase(), responses);
         
         if (!response) {
-            response = 'I\'m Amazon Q, here to help with FMS resources and operations! Please let me know what specific area you\'d like assistance with - FMS resources, data automation, or technical documentation.';
+            response = 'I\'m Amazon Q from the Logistics Hub! I can help with FMS resources, best practices, gemba walk methodology, and data automation. What would you like to know?';
         }
         
         this.addMessage(response, 'bot');
