@@ -255,9 +255,10 @@
             // 这些配置需要根据你的实际Amazon Q应用设置
             region: 'us-east-1',
             applicationId: 'your-amazon-q-app-id', // 需要替换为实际的应用ID
+            apiEndpoint: 'http://localhost:3000/api/amazon-q/chat', // API代理端点
             // 注意：在生产环境中，不应该在前端暴露AWS凭证
             // 应该使用AWS Cognito或其他安全的认证方式
-            useDemo: true // 设置为true使用演示模式，false使用真实API
+            useDemo: true // 设置为false使用真实API，true使用演示模式
         };
     </script>
 

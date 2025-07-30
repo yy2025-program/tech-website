@@ -218,9 +218,10 @@ class AmazonQChatWidget {
     
     async getRealAmazonQResponse(message) {
         // Real Amazon Q API integration
-        // Note: This requires proper AWS credentials and CORS configuration
         try {
-            const response = await fetch('/api/amazon-q/chat', {
+            const apiEndpoint = this.config.apiEndpoint || '/api/amazon-q/chat';
+            
+            const response = await fetch(apiEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -228,19 +229,35 @@ class AmazonQChatWidget {
                 body: JSON.stringify({
                     message: message,
                     conversationId: this.conversationId,
-                    applicationId: this.config.applicationId
+                    userId: 'logistics-hub-user'
                 })
             });
             
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json();
+                throw new Error(errorData.details || `HTTP error! status: ${response.status}`);
             }
             
             const data = await response.json();
+            
+            // Update conversation ID if provided
+            if (data.conversationId) {
+                this.conversationId = data.conversationId;
+            }
+            
             return data.message || 'I apologize, but I couldn\'t process your request right now.';
+            
         } catch (error) {
             console.error('Amazon Q API call failed:', error);
-            throw error;
+            
+            // Provide user-friendly error messages
+            if (error.message.includes('Failed to fetch')) {
+                throw new Error('Unable to connect to Amazon Q service. Please check your internet connection.');
+            } else if (error.message.includes('Access denied')) {
+                throw new Error('Access denied to Amazon Q service. Please contact your administrator.');
+            } else {
+                throw new Error(`Amazon Q service error: ${error.message}`);
+            }
         }
     }
     
