@@ -260,7 +260,9 @@ class AmazonQChatWidget {
             
             'automation': 'Our data and automation tools include advanced analytics for demand forecasting, automated inventory replenishment, and process optimization algorithms. These tools help reduce manual work and improve accuracy. What automation challenge are you facing?',
             
-            'best practice': 'FMS best practices focus on operational excellence, process optimization, and quality management. Key principles include: continuous improvement, data-driven decisions, and customer-centric operations. Which best practice area would you like to dive deeper into?',
+            'best practice': 'Our AI Agent solutions focus on intelligent automation, predictive analytics, and smart decision support. These AI-powered systems help optimize logistics operations, predict demand patterns, and provide real-time recommendations. Which AI capability interests you most?',
+            
+            'ai agent': 'Our AI Agent solutions focus on intelligent automation, predictive analytics, and smart decision support. These AI-powered systems help optimize logistics operations, predict demand patterns, and provide real-time recommendations. Which AI capability interests you most?',
             
             'gemba walk': 'Gemba walks are essential for understanding actual processes. Our methodology includes: 1) Structured observation techniques, 2) Systematic data collection, 3) Action planning based on findings. Would you like guidance on conducting effective gemba walks?',
             
@@ -273,17 +275,17 @@ class AmazonQChatWidget {
             'vos': 'Voice of Seller (VoS) feedback is crucial for our continuous improvement. Our VoS bank contains seller insights, pain points, and improvement suggestions. This data drives our operational enhancements and policy updates. Looking for specific VoS insights?',
             
             // General helpful responses
-            'help': 'I can assist you with FMS logistics operations including: inventory management, shipping processes, seller support, automation tools, best practices, gemba walk methodology, and domain expertise. What would you like to explore?',
+            'help': 'I can assist you with FMS logistics operations including: inventory management, shipping processes, seller support, automation tools, AI agents, gemba walk methodology, and domain expertise. What would you like to explore?',
             
-            'hello': 'Hello! I\'m Amazon Q, specialized in FMS logistics operations. I can help you navigate our internal resources, understand best practices, and solve operational challenges. What brings you here today?',
+            'hello': 'Hello! I\'m Amazon Q, specialized in FMS logistics operations. I can help you navigate our internal resources, understand AI agents, and solve operational challenges. What brings you here today?',
             
-            'thank': 'You\'re welcome! I\'m here to help with any FMS logistics questions or challenges you might have. Feel free to ask about our resources, processes, or best practices anytime.',
+            'thank': 'You\'re welcome! I\'m here to help with any FMS logistics questions or challenges you might have. Feel free to ask about our resources, processes, or AI agents anytime.',
             
             // Default responses
             'default': [
                 'That\'s an interesting question about FMS operations. Based on our logistics expertise, I\'d recommend checking our internal resources or consulting with domain experts. Could you provide more specific details about your challenge?',
-                'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, best practices, and expert insights. What specific aspect would you like me to help you with?',
-                'For complex FMS logistics questions like this, I suggest reviewing our work plans and best practice documentation. Our domain members have extensive experience with similar challenges. Would you like me to direct you to specific resources?'
+                'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, AI agents, and expert insights. What specific aspect would you like me to help you with?',
+                'For complex FMS logistics questions like this, I suggest reviewing our work plans and AI agent documentation. Our domain members have extensive experience with similar challenges. Would you like me to direct you to specific resources?'
             ]
         };
         
