@@ -265,66 +265,124 @@
             region: 'us-east-1',
             applicationId: 'your-amazon-q-app-id',
             apiEndpoint: 'http://localhost:3000/api/amazon-q/chat',
-            useDemo: false // 禁用演示模式，使用真实Amazon Q Business
+            useDemo: false // 使用智能聊天模式
         };
         
         // Amazon员工模式配置
         window.AMAZON_EMPLOYEE_MODE = true;
     </script>
 
-    <!-- 修改聊天框为Amazon Q Business直接访问 -->
+    <!-- 智能两层聊天系统 -->
     <script>
-        console.log('🏢 Amazon员工模式：修改聊天框为直接访问');
+        console.log('🧠 智能两层聊天系统启动...');
         
-        // 等待页面加载完成后修改聊天功能
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('📝 开始修改聊天框功能...');
-            
-            // 查找聊天按钮
-            const chatButton = document.getElementById('chat-button');
-            if (chatButton) {
-                console.log('✅ 找到聊天按钮，修改为Amazon Q Business访问');
-                
-                // 移除原有的事件监听器
-                const newChatButton = chatButton.cloneNode(true);
-                chatButton.parentNode.replaceChild(newChatButton, chatButton);
-                
-                // 添加Amazon Q Business功能
-                newChatButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🖱️ 聊天按钮被点击 - 打开Amazon Q Business');
-                    
-                    // 直接打开Amazon Q Business而不是聊天面板
-                    const amazonQWindow = window.open(
-                        'https://ask.qbusiness.aws.dev/#/chat',
-                        'amazon-q-business',
-                        'width=450,height=650,left=' + (window.screen.width - 500) + ',top=50,scrollbars=yes,resizable=yes'
-                    );
-                    
-                    if (amazonQWindow) {
-                        console.log('✅ Amazon Q Business窗口已打开');
-                    } else {
-                        console.log('❌ 窗口被阻止，显示提示');
-                        alert('请允许弹窗以访问Amazon Q Business，或直接访问：https://ask.qbusiness.aws.dev/#/chat');
+        // 智能聊天机器人类
+        class SmartChatBot {
+            constructor() {
+                this.conversationHistory = [];
+                this.initializeKnowledgeBase();
+                console.log('✅ 智能聊天机器人已初始化');
+            }
+
+            initializeKnowledgeBase() {
+                this.knowledgeBase = {
+                    greetings: {
+                        patterns: [/你好|您好|hello|hi|嗨|早上好|下午好|晚上好/i],
+                        responses: {
+                            cn: [
+                                '您好！我是FMS物流智能助手。我可以帮助您了解：\n📦 库存管理和优化\n🚚 配送流程和策略\n🤖 自动化解决方案\n📊 数据分析和洞察\n\n请告诉我您想了解什么？',
+                                '您好！欢迎使用FMS物流助手。我具备专业的物流知识，可以为您提供库存、配送、自动化等方面的建议。有什么可以帮助您的吗？'
+                            ],
+                            en: [
+                                'Hello! I\'m the FMS logistics intelligent assistant. I can help you with:\n📦 Inventory management and optimization\n🚚 Delivery processes and strategies\n🤖 Automation solutions\n📊 Data analysis and insights\n\nWhat would you like to know?',
+                                'Hello! Welcome to the FMS logistics assistant. I have professional logistics knowledge and can provide advice on inventory, delivery, automation, and more. How can I help you?'
+                            ]
+                        }
+                    },
+                    logistics: {
+                        patterns: [/物流|logistics|fms|供应链|supply.?chain|配送|delivery|运输|shipping/i],
+                        responses: {
+                            cn: [
+                                'FMS物流系统的核心优势包括：\n\n🔹 **智能预测**：使用机器学习预测需求，准确率达95%\n🔹 **动态优化**：实时调整库存和配送路线\n🔹 **全程可视**：从采购到交付的完整追踪\n🔹 **成本控制**：算法优化降低30%运营成本\n\n您想深入了解哪个方面？需要更专业的分析，我可以为您连接Amazon Q Business。'
+                            ],
+                            en: [
+                                'FMS logistics system core advantages include:\n\n🔹 **Smart Forecasting**: Machine learning predicts demand with 95% accuracy\n🔹 **Dynamic Optimization**: Real-time inventory and route adjustments\n🔹 **Full Visibility**: Complete tracking from procurement to delivery\n🔹 **Cost Control**: Algorithm optimization reduces operational costs by 30%\n\nWhich aspect would you like to explore? For more professional analysis, I can connect you to Amazon Q Business.'
+                            ]
+                        }
+                    },
+                    inventory: {
+                        patterns: [/库存|inventory|仓储|warehouse|存货|stock|补货/i],
+                        responses: {
+                            cn: [
+                                '智能库存管理的关键策略：\n\n📊 **需求预测**：\n• 时间序列分析捕捉季节性趋势\n• 机器学习考虑促销和外部因素\n• 多模型集成提高预测准确性\n\n🎯 **库存优化**：\n• ABC分析重点管理高价值商品\n• 动态安全库存平衡服务和成本\n• 多级库存网络协同优化\n\n需要更详细的库存优化方案吗？我可以为您打开Amazon Q Business进行深度分析。'
+                            ],
+                            en: [
+                                'Key strategies for intelligent inventory management:\n\n📊 **Demand Forecasting**:\n• Time series analysis captures seasonal trends\n• Machine learning considers promotions and external factors\n• Multi-model integration improves forecast accuracy\n\n🎯 **Inventory Optimization**:\n• ABC analysis focuses on high-value items\n• Dynamic safety stock balances service and cost\n• Multi-tier inventory network coordination\n\nNeed a more detailed inventory optimization plan? I can open Amazon Q Business for in-depth analysis.'
+                            ]
+                        }
+                    },
+                    automation: {
+                        patterns: [/自动化|automation|ai|人工智能|机器人|robot|算法/i],
+                        responses: {
+                            cn: [
+                                'FMS自动化解决方案覆盖：\n\n🤖 **物理自动化**：\n• 分拣机器人：99.9%准确率，24/7运行\n• 无人叉车：自主导航，智能避障\n• 自动包装：每分钟200+包裹处理\n\n🧠 **认知自动化**：\n• 需求预测：机器学习持续优化\n• 路径规划：实时数据集成\n• 异常检测：自动识别99%异常\n\n想了解具体的自动化实施方案吗？Amazon Q Business可以提供更专业的技术细节。'
+                            ],
+                            en: [
+                                'FMS automation solutions cover:\n\n🤖 **Physical Automation**:\n• Sorting robots: 99.9% accuracy, 24/7 operation\n• Autonomous forklifts: Self-navigation, intelligent obstacle avoidance\n• Automated packaging: 200+ packages per minute\n\n🧠 **Cognitive Automation**:\n• Demand forecasting: Continuous ML optimization\n• Route planning: Real-time data integration\n• Anomaly detection: Automatically identifies 99% of exceptions\n\nWant to learn about specific automation implementation plans? Amazon Q Business can provide more professional technical details.'
+                            ]
+                        }
                     }
-                });
-                
-                // 添加员工模式视觉提示
-                newChatButton.style.background = 'linear-gradient(45deg, #FF9500, #FF6B35)';
-                newChatButton.title = 'Amazon Q Business - Employee Access';
-                
-                console.log('✅ 聊天按钮已修改为Amazon Q Business直接访问');
-            } else {
-                console.log('❌ 未找到聊天按钮');
+                };
             }
+
+            detectLanguage(message) {
+                const chineseChars = (message.match(/[\u4e00-\u9fff]/g) || []).length;
+                return chineseChars > 0 ? 'cn' : 'en';
+            }
+
+            async generateResponse(message) {
+                console.log('🧠 生成智能回复:', message);
+                
+                const language = this.detectLanguage(message);
+                this.conversationHistory.push({ message, language, timestamp: new Date() });
+
+                // 模拟思考时间
+                await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1500));
+
+                // 查找匹配的知识库
+                for (const [category, data] of Object.entries(this.knowledgeBase)) {
+                    if (data.patterns.some(pattern => pattern.test(message))) {
+                        const responses = data.responses[language];
+                        const response = responses[Math.floor(Math.random() * responses.length)];
+                        console.log('✅ 找到匹配回复:', category);
+                        return response;
+                    }
+                }
+
+                // 默认回复，提示可以升级到Amazon Q Business
+                const defaultResponses = {
+                    cn: [
+                        '这是一个很专业的问题！基于我的基础知识，我可能无法提供最准确的答案。\n\n💡 **建议**：对于更复杂的物流问题，我推荐使用Amazon Q Business，它具有更强大的AI能力和更全面的知识库。\n\n您希望我为您打开Amazon Q Business进行更深入的咨询吗？',
+                        '您的问题超出了我的基础知识范围。不过，我可以为您连接到Amazon Q Business，它是更强大的AI助手，能够处理复杂的物流和业务问题。\n\n🚀 **Amazon Q Business优势**：\n• 更深度的行业知识\n• 实时数据分析能力\n• 个性化解决方案\n\n需要我为您打开Amazon Q Business吗？'
+                    ],
+                    en: [
+                        'That\'s a very professional question! Based on my basic knowledge, I may not be able to provide the most accurate answer.\n\n💡 **Suggestion**: For more complex logistics questions, I recommend using Amazon Q Business, which has more powerful AI capabilities and a more comprehensive knowledge base.\n\nWould you like me to open Amazon Q Business for more in-depth consultation?',
+                        'Your question is beyond my basic knowledge scope. However, I can connect you to Amazon Q Business, which is a more powerful AI assistant capable of handling complex logistics and business problems.\n\n🚀 **Amazon Q Business advantages**:\n• Deeper industry knowledge\n• Real-time data analysis capabilities\n• Personalized solutions\n\nWould you like me to open Amazon Q Business for you?'
+                    ]
+                };
+
+                const response = defaultResponses[language][Math.floor(Math.random() * defaultResponses[language].length)];
+                console.log('📤 返回默认回复，建议升级到Amazon Q Business');
+                return response;
+            }
+        }
+
+        // 等待页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📝 初始化智能两层聊天系统...');
             
-            // 隐藏聊天面板，因为我们直接打开新窗口
-            const chatPanel = document.getElementById('chat-panel');
-            if (chatPanel) {
-                chatPanel.style.display = 'none';
-                console.log('✅ 已隐藏原有聊天面板');
-            }
+            // 初始化智能聊天机器人
+            const smartBot = new SmartChatBot();
             
             // 添加员工模式指示器
             const indicator = document.createElement('div');
@@ -344,10 +402,114 @@
                 font-family: Arial, sans-serif;
             `;
             document.body.appendChild(indicator);
-            console.log('✅ 员工模式指示器已添加');
+            
+            // 修改聊天按钮样式（橙色表示员工模式）
+            const chatButton = document.getElementById('chat-button');
+            if (chatButton) {
+                chatButton.style.background = 'linear-gradient(45deg, #FF9500, #FF6B35)';
+                chatButton.title = 'Smart Chat with Amazon Q Business Upgrade Option';
+                console.log('✅ 聊天按钮已设置为员工模式样式');
+            }
+            
+            // 修改聊天面板，添加Amazon Q Business升级选项
+            const chatMessages = document.getElementById('chat-messages');
+            if (chatMessages) {
+                // 更新欢迎消息
+                chatMessages.innerHTML = `
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            <p>👋 您好！我是FMS物流智能助手。我可以帮助您解答基础的物流问题。</p>
+                            <p>💡 <strong>升级提示</strong>：如果需要更专业的分析，我可以为您连接到Amazon Q Business！</p>
+                            <div style="margin-top: 15px; padding: 10px; background: linear-gradient(45deg, #FF9500, #FF6B35); border-radius: 10px;">
+                                <button onclick="openAmazonQBusiness()" style="
+                                    background: white; 
+                                    color: #FF6B35; 
+                                    border: none; 
+                                    padding: 8px 16px; 
+                                    border-radius: 20px; 
+                                    font-weight: bold; 
+                                    cursor: pointer;
+                                    margin-right: 10px;
+                                ">🚀 打开 Amazon Q Business</button>
+                                <span style="color: white; font-size: 12px;">更强大的AI助手</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // 重写聊天响应函数
+            window.originalGetDemoResponse = window.AmazonQChat?.prototype?.getDemoResponse;
+            if (window.AmazonQChat && window.AmazonQChat.prototype) {
+                window.AmazonQChat.prototype.getDemoResponse = async function(message) {
+                    console.log('🧠 使用智能聊天机器人处理:', message);
+                    
+                    try {
+                        const response = await smartBot.generateResponse(message);
+                        
+                        // 如果回复中提到Amazon Q Business，添加升级按钮
+                        if (response.includes('Amazon Q Business')) {
+                            const enhancedResponse = response + `
+                                <div style="margin-top: 15px; padding: 10px; background: #f0f8ff; border-radius: 10px; border-left: 4px solid #FF6B35;">
+                                    <button onclick="openAmazonQBusiness()" style="
+                                        background: linear-gradient(45deg, #FF9500, #FF6B35); 
+                                        color: white; 
+                                        border: none; 
+                                        padding: 10px 20px; 
+                                        border-radius: 25px; 
+                                        font-weight: bold; 
+                                        cursor: pointer;
+                                    ">🚀 立即打开 Amazon Q Business</button>
+                                    <p style="margin-top: 8px; font-size: 12px; color: #666;">获得更专业的AI分析和建议</p>
+                                </div>
+                            `;
+                            return enhancedResponse;
+                        }
+                        
+                        return response;
+                    } catch (error) {
+                        console.error('智能聊天机器人错误:', error);
+                        return '抱歉，我遇到了一些问题。您可以尝试使用Amazon Q Business获得更好的服务。';
+                    }
+                };
+            }
+            
+            console.log('✅ 智能两层聊天系统初始化完成');
         });
         
-        console.log('✅ Amazon员工模式聊天修改脚本已加载');
+        // 全局函数：打开Amazon Q Business
+        window.openAmazonQBusiness = function() {
+            console.log('🚀 打开Amazon Q Business...');
+            
+            const amazonQWindow = window.open(
+                'https://ask.qbusiness.aws.dev/#/chat',
+                'amazon-q-business',
+                'width=500,height=700,left=' + (window.screen.width - 550) + ',top=50,scrollbars=yes,resizable=yes'
+            );
+            
+            if (amazonQWindow) {
+                console.log('✅ Amazon Q Business窗口已打开');
+                
+                // 在聊天中显示成功消息
+                const chatMessages = document.getElementById('chat-messages');
+                if (chatMessages) {
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'message bot-message';
+                    successMsg.innerHTML = `
+                        <div class="message-content">
+                            <p>✅ Amazon Q Business已在新窗口中打开！</p>
+                            <p>请在新窗口中使用您的Amazon SSO凭证登录，享受更强大的AI助手服务。</p>
+                        </div>
+                    `;
+                    chatMessages.appendChild(successMsg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }
+            } else {
+                alert('无法打开Amazon Q Business窗口，请检查浏览器弹窗设置，或直接访问：https://ask.qbusiness.aws.dev/#/chat');
+            }
+        };
+        
+        console.log('✅ 智能两层聊天系统代码加载完成');
     </script>
     
     <script src="script.js"></script>
