@@ -258,6 +258,241 @@
         </div>
     </div>
 
+    <!-- 强制Amazon员工模式 - 必须在所有其他脚本之前 -->
+    <script>
+        console.log('🚀 强制Amazon员工模式启动...');
+        
+        // 立即执行，不等待任何事件
+        (function() {
+            console.log('📍 立即执行Amazon员工模式...');
+            
+            // 强制显示员工模式指示器
+            function forceShowIndicator() {
+                console.log('🏢 强制显示指示器...');
+                
+                const indicator = document.createElement('div');
+                indicator.innerHTML = '🏢 Amazon Employee Mode (强制版)';
+                indicator.style.cssText = `
+                    position: fixed !important;
+                    top: 10px !important;
+                    right: 10px !important;
+                    background: linear-gradient(45deg, #FF9500, #FF6B35) !important;
+                    color: white !important;
+                    padding: 10px 15px !important;
+                    border-radius: 25px !important;
+                    font-size: 14px !important;
+                    font-weight: bold !important;
+                    z-index: 999999 !important;
+                    box-shadow: 0 4px 20px rgba(255, 107, 53, 0.5) !important;
+                    font-family: Arial, sans-serif !important;
+                    animation: pulse 2s infinite !important;
+                `;
+                
+                // 添加CSS动画
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes pulse {
+                        0% { transform: scale(1); }
+                        50% { transform: scale(1.05); }
+                        100% { transform: scale(1); }
+                    }
+                `;
+                document.head.appendChild(style);
+                document.body.appendChild(indicator);
+                
+                console.log('✅ 员工模式指示器已强制显示');
+            }
+            
+            // 强制显示调试面板
+            function forceShowDebugPanel() {
+                console.log('🔧 强制显示调试面板...');
+                
+                const debugPanel = document.createElement('div');
+                debugPanel.innerHTML = `
+                    <div style="color: #ffff00; font-weight: bold; margin-bottom: 10px; text-align: center;">
+                        🔧 Amazon员工模式 (强制激活)
+                    </div>
+                    <div style="color: #00ff00; font-size: 12px; line-height: 1.4;">
+                        ✅ 强制模式已启动<br>
+                        ✅ 员工指示器已显示<br>
+                        ⏳ 正在查找聊天按钮...<br>
+                        🎯 准备替换为Amazon Q Business
+                    </div>
+                    <div style="margin-top: 10px; text-align: center;">
+                        <button onclick="window.forceReplaceChat()" style="
+                            background: #28a745; color: white; border: none; 
+                            padding: 8px 12px; border-radius: 5px; cursor: pointer; margin-right: 5px;
+                        ">强制替换按钮</button>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: #dc3545; color: white; border: none; 
+                            padding: 8px 12px; border-radius: 5px; cursor: pointer;
+                        ">关闭</button>
+                    </div>
+                `;
+                debugPanel.style.cssText = `
+                    position: fixed !important;
+                    top: 70px !important;
+                    right: 10px !important;
+                    width: 280px !important;
+                    background: rgba(0, 0, 0, 0.95) !important;
+                    color: #00ff00 !important;
+                    padding: 20px !important;
+                    border-radius: 15px !important;
+                    font-family: 'Courier New', monospace !important;
+                    font-size: 11px !important;
+                    z-index: 999998 !important;
+                    border: 3px solid #00ff00 !important;
+                    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3) !important;
+                `;
+                document.body.appendChild(debugPanel);
+                
+                console.log('✅ 调试面板已强制显示');
+            }
+            
+            // 强制替换聊天按钮
+            window.forceReplaceChat = function() {
+                console.log('🔄 强制查找和替换聊天按钮...');
+                
+                // 查找聊天按钮的多种方式
+                let chatButton = document.getElementById('chat-button');
+                
+                if (!chatButton) {
+                    // 尝试其他选择器
+                    chatButton = document.querySelector('.chat-button');
+                }
+                
+                if (!chatButton) {
+                    // 查找包含chat的元素
+                    const allElements = document.querySelectorAll('*');
+                    for (let element of allElements) {
+                        if (element.id && element.id.includes('chat')) {
+                            chatButton = element;
+                            break;
+                        }
+                    }
+                }
+                
+                if (chatButton) {
+                    console.log('✅ 找到聊天按钮:', chatButton.id || chatButton.className);
+                    
+                    // 强制更新样式
+                    chatButton.innerHTML = `
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="white"/>
+                            <path d="M12 6C8.69 6 6 8.69 6 12C6 15.31 8.69 18 12 18C15.31 18 18 15.31 18 12C18 8.69 15.31 6 12 6ZM12 16C9.79 16 8 14.21 8 12C8 9.79 9.79 8 12 8C14.21 8 16 9.79 16 12C16 14.21 14.21 16 12 16Z" fill="white"/>
+                        </svg>
+                        💬 Amazon Q Business (Internal)
+                    `;
+                    
+                    chatButton.style.cssText = `
+                        position: fixed !important;
+                        bottom: 30px !important;
+                        right: 30px !important;
+                        width: 280px !important;
+                        height: 60px !important;
+                        background: linear-gradient(45deg, #FF9500, #FF6B35) !important;
+                        color: white !important;
+                        border: none !important;
+                        border-radius: 30px !important;
+                        font-size: 16px !important;
+                        font-weight: bold !important;
+                        cursor: pointer !important;
+                        box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4) !important;
+                        z-index: 999997 !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                        gap: 10px !important;
+                        transition: all 0.3s ease !important;
+                    `;
+                    
+                    // 移除所有现有事件监听器
+                    const newButton = chatButton.cloneNode(true);
+                    chatButton.parentNode.replaceChild(newButton, chatButton);
+                    
+                    // 添加Amazon Q Business功能
+                    newButton.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🖱️ Amazon Q Business按钮被点击！');
+                        
+                        // 更新调试面板
+                        const debugContent = document.querySelector('[style*="color: #00ff00"]');
+                        if (debugContent) {
+                            debugContent.innerHTML += '<br>🚀 正在打开Amazon Q Business...';
+                        }
+                        
+                        // 直接打开Amazon Q Business
+                        const chatWindow = window.open(
+                            'https://ask.qbusiness.aws.dev/#/chat',
+                            'amazon-q-business',
+                            'width=600,height=800,left=' + (window.screen.width - 650) + ',top=50,scrollbars=yes,resizable=yes'
+                        );
+                        
+                        if (chatWindow) {
+                            console.log('✅ Amazon Q Business窗口已打开');
+                            if (debugContent) {
+                                debugContent.innerHTML += '<br>✅ 窗口已成功打开！';
+                            }
+                        } else {
+                            console.log('❌ 窗口打开失败');
+                            alert('无法打开Amazon Q Business窗口，请检查浏览器弹窗设置');
+                        }
+                    });
+                    
+                    // 添加悬停效果
+                    newButton.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-3px) scale(1.02)';
+                        this.style.boxShadow = '0 12px 35px rgba(255, 107, 53, 0.6)';
+                    });
+                    
+                    newButton.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                        this.style.boxShadow = '0 8px 25px rgba(255, 107, 53, 0.4)';
+                    });
+                    
+                    console.log('✅ 聊天按钮已强制替换为Amazon Q Business');
+                    
+                    // 更新调试面板
+                    const debugContent = document.querySelector('[style*="color: #00ff00"]');
+                    if (debugContent) {
+                        debugContent.innerHTML = `
+                            ✅ 强制模式已启动<br>
+                            ✅ 员工指示器已显示<br>
+                            ✅ 聊天按钮已找到并替换<br>
+                            🎉 Amazon Q Business已准备就绪！
+                        `;
+                    }
+                    
+                    return true;
+                } else {
+                    console.log('❌ 未找到任何聊天按钮');
+                    
+                    // 更新调试面板显示错误
+                    const debugContent = document.querySelector('[style*="color: #00ff00"]');
+                    if (debugContent) {
+                        debugContent.innerHTML += '<br>❌ 未找到聊天按钮，请手动查找';
+                    }
+                    
+                    return false;
+                }
+            };
+            
+            // 立即显示界面元素
+            forceShowIndicator();
+            forceShowDebugPanel();
+            
+            // 延迟查找按钮
+            setTimeout(window.forceReplaceChat, 1000);
+            setTimeout(window.forceReplaceChat, 3000);
+            setTimeout(window.forceReplaceChat, 5000);
+            
+            console.log('🎉 强制Amazon员工模式初始化完成');
+        })();
+        
+        console.log('✅ 强制Amazon员工模式代码加载完成');
+    </script>
+
     <!-- Amazon Q Configuration (Hidden) -->
     <script>
         // Amazon Q API Configuration
@@ -274,156 +509,6 @@
         // 启用Amazon员工模式检测
         window.AMAZON_EMPLOYEE_MODE = true;
         window.USE_TRULY_SMART_CHAT = true; // 备用方案
-    </script>
-
-    <!-- 直接嵌入Amazon员工模式代码 -->
-    <script>
-        console.log('🔧 Amazon员工模式检测开始...');
-        
-        // 立即显示员工模式指示器
-        function showEmployeeMode() {
-            // 创建员工模式指示器
-            const indicator = document.createElement('div');
-            indicator.id = 'employee-mode-indicator';
-            indicator.innerHTML = '🏢 Amazon Employee Mode';
-            indicator.style.cssText = `
-                position: fixed !important;
-                top: 10px !important;
-                right: 10px !important;
-                background: linear-gradient(45deg, #FF9500, #FF6B35) !important;
-                color: white !important;
-                padding: 8px 12px !important;
-                border-radius: 20px !important;
-                font-size: 12px !important;
-                font-weight: bold !important;
-                z-index: 99999 !important;
-                box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
-                font-family: Arial, sans-serif !important;
-            `;
-            document.body.appendChild(indicator);
-            
-            // 创建调试面板
-            const debugPanel = document.createElement('div');
-            debugPanel.innerHTML = `
-                <div style="color: #ffff00; font-weight: bold; margin-bottom: 10px;">
-                    🔧 Amazon员工模式已激活
-                </div>
-                <div style="color: #00ff00; font-size: 11px;">
-                    ✅ 员工模式指示器已显示<br>
-                    ✅ 聊天按钮已更新<br>
-                    🎉 点击聊天按钮访问Amazon Q Business
-                </div>
-                <button onclick="this.parentElement.remove()" style="
-                    background: #ff0000; color: white; border: none; 
-                    padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px;
-                ">关闭</button>
-            `;
-            debugPanel.style.cssText = `
-                position: fixed !important;
-                top: 60px !important;
-                right: 10px !important;
-                width: 250px !important;
-                background: rgba(0, 0, 0, 0.9) !important;
-                color: #00ff00 !important;
-                padding: 15px !important;
-                border-radius: 10px !important;
-                font-family: monospace !important;
-                font-size: 12px !important;
-                z-index: 99998 !important;
-                border: 2px solid #00ff00 !important;
-            `;
-            document.body.appendChild(debugPanel);
-            
-            console.log('✅ Amazon员工模式指示器和调试面板已显示');
-        }
-        
-        // 替换聊天按钮功能
-        function replaceChat() {
-            const chatButton = document.getElementById('chat-button');
-            if (chatButton) {
-                console.log('🔄 找到聊天按钮，正在替换...');
-                
-                // 更新按钮样式和文本
-                chatButton.innerHTML = '💬 Amazon Q Business (Internal)';
-                chatButton.style.cssText = `
-                    background: linear-gradient(45deg, #FF9500, #FF6B35) !important;
-                    color: white !important;
-                    border: none !important;
-                    padding: 12px 24px !important;
-                    border-radius: 25px !important;
-                    font-weight: bold !important;
-                    cursor: pointer !important;
-                    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
-                `;
-                chatButton.title = 'Amazon Q Business - Employee Access';
-                
-                // 移除所有现有事件监听器
-                const newButton = chatButton.cloneNode(true);
-                chatButton.parentNode.replaceChild(newButton, chatButton);
-                
-                // 添加Amazon Q Business功能
-                newButton.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    console.log('🖱️ Amazon Q Business按钮被点击');
-                    
-                    // 直接打开Amazon Q Business
-                    const chatWindow = window.open(
-                        'https://ask.qbusiness.aws.dev/#/chat',
-                        'amazon-q-business',
-                        'width=500,height=700,left=' + (window.screen.width - 550) + ',top=50,scrollbars=yes,resizable=yes'
-                    );
-                    
-                    if (chatWindow) {
-                        console.log('✅ Amazon Q Business窗口已打开');
-                    } else {
-                        alert('无法打开窗口，请检查浏览器弹窗设置');
-                    }
-                });
-                
-                console.log('✅ 聊天按钮已替换为Amazon Q Business');
-                return true;
-            } else {
-                console.log('❌ 未找到聊天按钮，1秒后重试...');
-                setTimeout(replaceChat, 1000);
-                return false;
-            }
-        }
-        
-        // 初始化Amazon员工模式
-        function initEmployeeMode() {
-            console.log('🚀 初始化Amazon员工模式...');
-            
-            // 禁用演示模式
-            if (window.AMAZON_Q_CONFIG) {
-                window.AMAZON_Q_CONFIG.useDemo = false;
-                console.log('✅ 已禁用演示模式');
-            }
-            
-            // 显示员工模式界面
-            showEmployeeMode();
-            
-            // 替换聊天按钮
-            setTimeout(replaceChat, 500);
-            setTimeout(replaceChat, 2000);
-            setTimeout(replaceChat, 5000);
-        }
-        
-        // 多种方式确保初始化
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initEmployeeMode);
-        } else {
-            initEmployeeMode();
-        }
-        
-        // 延迟初始化确保成功
-        setTimeout(initEmployeeMode, 1000);
-        setTimeout(initEmployeeMode, 3000);
-        
-        // 全局函数供调试使用
-        window.initEmployeeMode = initEmployeeMode;
-        
-        console.log('✅ Amazon员工模式代码加载完成');
     </script>
     
     <script src="script.js"></script>
