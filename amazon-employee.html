@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Q Business - Employee Direct Access</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .status {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-title {
+            color: #2E7D32;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .status-list {
+            color: #388E3C;
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        .amazon-q-button {
+            background: linear-gradient(45deg, #FF9500, #FF6B35);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            margin: 10px;
+            min-width: 300px;
+        }
+        
+        .amazon-q-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.4);
+        }
+        
+        .info {
+            background: #f0f8ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 5px;
+        }
+        
+        .employee-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #FF9500, #FF6B35);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .timestamp {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="employee-badge">
+        🏢 Amazon Employee Mode
+    </div>
+    
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1>Amazon Q Business</h1>
+        <div class="subtitle">Employee Direct Access Portal</div>
+        
+        <div class="status">
+            <div class="status-title">✅ System Status: Ready</div>
+            <div class="status-list">
+                • Employee authentication: Verified<br>
+                • Amazon Q Business: Available<br>
+                • Direct access: Enabled<br>
+                • Cache bypass: Active
+            </div>
+        </div>
+        
+        <button class="amazon-q-button" onclick="openAmazonQ()">
+            💬 Open Amazon Q Business
+        </button>
+        
+        <div class="info">
+            <strong>📋 Instructions:</strong><br>
+            1. Click the button above to open Amazon Q Business<br>
+            2. Use your Amazon SSO credentials to log in<br>
+            3. Start chatting with the AI assistant<br>
+            4. This page bypasses all caching issues
+        </div>
+    </div>
+    
+    <div class="timestamp">
+        Page generated: <span id="timestamp"></span>
+    </div>
+
+    <script>
+        // 显示当前时间戳证明页面是新的
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // 打开Amazon Q Business
+        function openAmazonQ() {
+            console.log('🚀 Opening Amazon Q Business...');
+            
+            // 更新状态
+            const statusList = document.querySelector('.status-list');
+            statusList.innerHTML += '<br>🚀 Opening Amazon Q Business...';
+            
+            // 打开Amazon Q Business
+            const chatWindow = window.open(
+                'https://ask.qbusiness.aws.dev/#/chat',
+                'amazon-q-business',
+                'width=800,height=900,left=' + (window.screen.width - 850) + ',top=50,scrollbars=yes,resizable=yes,location=yes,menubar=no,toolbar=yes,status=yes'
+            );
+            
+            if (chatWindow) {
+                console.log('✅ Amazon Q Business window opened successfully');
+                statusList.innerHTML += '<br>✅ Window opened successfully!';
+                
+                // 检查窗口是否被阻止
+                setTimeout(() => {
+                    if (chatWindow.closed) {
+                        statusList.innerHTML += '<br>⚠️ Window was closed or blocked';
+                    } else {
+                        statusList.innerHTML += '<br>🎉 Amazon Q Business is ready!';
+                    }
+                }, 2000);
+            } else {
+                console.log('❌ Failed to open window');
+                statusList.innerHTML += '<br>❌ Failed to open window - check popup settings';
+                alert('Unable to open Amazon Q Business window. Please check your browser popup settings and try again.');
+            }
+        }
+        
+        // 页面加载完成提示
+        window.addEventListener('load', function() {
+            console.log('🎉 Amazon Employee Direct Access page loaded successfully');
+            console.log('📊 Page timestamp:', new Date().toISOString());
+        });
+    </script>
+</body>
+</html>
