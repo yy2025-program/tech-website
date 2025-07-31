@@ -134,8 +134,8 @@ class AmazonQChatWidget {
         this.conversationId = this.generateConversationId();
         this.config = window.AMAZON_Q_CONFIG || {};
         
-        // 初始化超级增强版免费聊天机器人
-        this.superBot = new window.SuperEnhancedChatBot();
+        // 使用修复版智能聊天机器人
+        this.smartBot = new window.FixedSmartChatBot();
         
         this.init();
     }
@@ -307,52 +307,27 @@ class AmazonQChatWidget {
     }
     
     async getDemoResponse(message) {
-        // 使用超级增强版免费聊天机器人
-        if (this.superBot) {
-            console.log('🚀 使用超级增强版聊天机器人处理消息:', message);
+        // 使用修复版智能聊天机器人
+        if (this.smartBot) {
+            console.log('🤖 使用修复版智能聊天机器人处理消息:', message);
             try {
-                const response = await this.superBot.generateResponse(message);
-                console.log('✅ 超级机器人回复:', response);
+                const response = await this.smartBot.generateResponse(message);
+                console.log('✅ 智能机器人回复:', response);
                 return response;
             } catch (error) {
-                console.error('❌ 超级机器人出错，使用备用方案:', error);
+                console.error('❌ 智能机器人出错:', error);
             }
         }
         
-        // 备用简单回复（如果超级机器人未加载）
-        await this.delay(1000 + Math.random() * 2000);
-        
-        console.log('📝 处理消息:', message);
+        // 备用简单回复
+        await this.delay(1000);
         
         const langSwitcher = document.querySelector('.lang-btn');
         const isEnglish = !langSwitcher || langSwitcher.textContent === 'CN';
         
-        const lowerMessage = message.toLowerCase();
-        
-        if (lowerMessage.includes('你好') || lowerMessage.includes('您好') || lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
-            return isEnglish ? 
-                'Hello! I\'m your advanced AI assistant, specialized in FMS logistics operations with deep learning capabilities. I can analyze context, understand sentiment, and provide personalized recommendations. What brings you here today?' :
-                '您好！我是您的高级AI助手，专门从事FMS物流运营，具有深度学习能力。我可以分析上下文、理解情感并提供个性化建议。今天是什么带您来这里的？';
-        }
-        
-        if (lowerMessage.includes('物流') || lowerMessage.includes('fms') || lowerMessage.includes('logistics')) {
-            return isEnglish ? 
-                'FMS logistics leverages advanced AI and machine learning for supply chain optimization. Our system processes terabytes of data daily for demand forecasting, inventory positioning, and network design. I can provide detailed insights on any specific area you\'re interested in.' :
-                'FMS物流利用先进的AI和机器学习进行供应链优化。我们的系统每天处理TB级数据进行需求预测、库存定位和网络设计。我可以为您感兴趣的任何特定领域提供详细见解。';
-        }
-        
-        // 更多智能回复...
-        const defaultResponses = isEnglish ? [
-            'That\'s a fascinating question! My advanced analysis capabilities allow me to provide comprehensive insights. Based on the context and your expertise level, I can tailor my response to be most helpful. Could you provide more specific details?',
-            'I\'m analyzing your query using advanced natural language processing. This appears to relate to our logistics operations. I can provide detailed technical information or simplified explanations based on your preference. What level of detail would be most useful?'
-        ] : [
-            '这是一个很有趣的问题！我的高级分析能力让我能够提供全面的见解。基于上下文和您的专业水平，我可以调整我的回复以提供最大帮助。您能提供更多具体细节吗？',
-            '我正在使用高级自然语言处理分析您的查询。这似乎与我们的物流运营相关。我可以根据您的偏好提供详细的技术信息或简化的解释。什么级别的细节最有用？'
-        ];
-        
-        const response = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-        console.log('📤 返回响应:', response);
-        return response;
+        return isEnglish ? 
+            'Hello! I\'m your AI logistics assistant. How can I help you today?' :
+            '您好！我是您的AI物流助手。今天有什么可以帮助您的吗？';
     }
     
     delay(ms) {
