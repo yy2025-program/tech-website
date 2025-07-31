@@ -253,6 +253,13 @@ class AmazonQChatWidget {
     }
     
     async callAmazonQAPI(message) {
+        // 优先检查Amazon员工模式
+        if (window.AMAZON_EMPLOYEE_MODE && window.employeeQBusiness && window.employeeQBusiness.initialized) {
+            console.log('🏢 使用Amazon员工模式处理消息');
+            // Amazon员工模式下，消息通过弹窗处理，这里返回提示
+            return '请在弹出的Amazon Q Business窗口中继续对话。如果窗口没有打开，请检查浏览器弹窗设置。';
+        }
+        
         // Check if using demo mode or real API
         if (this.config.useDemo) {
             return await this.getDemoResponse(message);

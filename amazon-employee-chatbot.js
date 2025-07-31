@@ -89,15 +89,39 @@ class AmazonEmployeeQBusiness {
             // 添加新的事件监听器
             newButton.addEventListener('click', async (e) => {
                 e.preventDefault();
+                e.stopPropagation();
                 console.log('🖱️ Amazon员工聊天按钮被点击');
                 await this.createInternalChatWindow();
             });
             
             console.log('✅ 聊天按钮已更新为Amazon员工模式');
+            
+            // 禁用原有的聊天面板功能
+            this.disableOriginalChatPanel();
+            
             return true;
         } else {
             console.log('❌ 找不到聊天按钮元素');
             return false;
+        }
+    }
+
+    // 禁用原有的聊天面板
+    disableOriginalChatPanel() {
+        console.log('🚫 禁用原有聊天面板...');
+        
+        // 查找并隐藏原有的聊天面板
+        const chatPanel = document.getElementById('chat-panel');
+        if (chatPanel) {
+            chatPanel.style.display = 'none';
+            console.log('✅ 原有聊天面板已隐藏');
+        }
+        
+        // 覆盖全局配置
+        if (window.AMAZON_Q_CONFIG) {
+            window.AMAZON_Q_CONFIG.useDemo = false;
+            window.AMAZON_Q_CONFIG.employeeMode = true;
+            console.log('✅ 已覆盖全局配置为员工模式');
         }
     }
 
