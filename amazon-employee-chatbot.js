@@ -1,4 +1,4 @@
-// Amazon员工专用Amazon Q Business集成
+// Amazon员工专用Amazon Q Business集成 - 修复版
 class AmazonEmployeeQBusiness {
     constructor(config = {}) {
         this.config = {
@@ -9,35 +9,35 @@ class AmazonEmployeeQBusiness {
         };
         
         this.isAmazonEmployee = true;
+        this.initialized = false;
         console.log('🏢 Amazon员工模式已启用');
     }
 
     // 检查Amazon SSO状态
     async checkSSOStatus() {
         try {
+            console.log('🔍 检查Amazon内部网络访问...');
+            
             // 检查是否在Amazon内部网络
             const response = await fetch(this.config.internalURL, {
                 method: 'HEAD',
-                credentials: 'include'
+                credentials: 'include',
+                mode: 'no-cors' // 避免CORS问题
             });
             
-            return response.status !== 403;
+            console.log('📡 网络检查响应:', response);
+            return true; // 如果能发送请求就认为可能有访问权限
         } catch (error) {
-            console.log('⚠️ 无法访问Amazon内部网络');
+            console.log('⚠️ 无法访问Amazon内部网络:', error);
             return false;
         }
     }
 
     // 创建内部聊天窗口
     async createInternalChatWindow() {
-        const ssoAvailable = await this.checkSSOStatus();
+        console.log('🚀 尝试打开Amazon Q Business内部窗口...');
         
-        if (!ssoAvailable) {
-            alert('请确保您已连接到Amazon内部网络并完成SSO登录');
-            return null;
-        }
-
-        // 打开Amazon Q Business内部页面
+        // 直接尝试打开，让用户自己判断是否能访问
         const chatWindow = window.open(
             `${this.config.internalURL}/#/chat`,
             'amazon-q-internal',
@@ -54,80 +54,64 @@ class AmazonEmployeeQBusiness {
         );
 
         if (chatWindow) {
-            console.log('🚀 Amazon Q Business内部窗口已打开');
-            this.setupWindowCommunication(chatWindow);
+            console.log('✅ Amazon Q Business内部窗口已打开');
+            
+            // 显示使用提示
+            setTimeout(() => {
+                if (!chatWindow.closed) {
+                    console.log('💡 如果页面要求登录，请使用您的Amazon SSO凭证');
+                }
+            }, 2000);
+            
+            return chatWindow;
+        } else {
+            alert('无法打开窗口，请检查浏览器弹窗设置');
+            return null;
         }
-
-        return chatWindow;
-    }
-
-    // 设置窗口通信（如果支持）
-    setupWindowCommunication(chatWindow) {
-        // 监听来自Amazon Q Business的消息
-        window.addEventListener('message', (event) => {
-            if (event.origin === 'https://ask.qbusiness.aws.dev') {
-                console.log('📨 收到Amazon Q Business消息:', event.data);
-                this.handleInternalMessage(event.data);
-            }
-        });
-    }
-
-    // 处理内部消息
-    handleInternalMessage(data) {
-        // 根据Amazon Q Business的消息格式处理
-        // 这需要根据实际的内部API来实现
-        console.log('处理内部消息:', data);
     }
 
     // 替换现有聊天按钮
     replaceExistingChatButton() {
+        console.log('🔄 替换聊天按钮为Amazon员工模式...');
+        
         const chatButton = document.getElementById('chat-button');
         if (chatButton) {
             // 更新按钮样式和文本
             chatButton.innerHTML = '💬 Amazon Q Business (Internal)';
             chatButton.style.background = 'linear-gradient(45deg, #FF9500, #FF6B35)';
+            chatButton.style.color = 'white';
             chatButton.title = 'Amazon Q Business - Employee Access';
             
             // 移除现有事件监听器
-            chatButton.replaceWith(chatButton.cloneNode(true));
-            const newButton = document.getElementById('chat-button');
+            const newButton = chatButton.cloneNode(true);
+            chatButton.parentNode.replaceChild(newButton, chatButton);
             
             // 添加新的事件监听器
-            newButton.addEventListener('click', async () => {
+            newButton.addEventListener('click', async (e) => {
+                e.preventDefault();
+                console.log('🖱️ Amazon员工聊天按钮被点击');
                 await this.createInternalChatWindow();
             });
             
-            console.log('✅ 已启用Amazon员工内部访问模式');
-        }
-    }
-
-    // 检查员工权限并初始化
-    async initialize() {
-        console.log('🔍 检查Amazon员工权限...');
-        
-        const hasAccess = await this.checkSSOStatus();
-        
-        if (hasAccess) {
-            console.log('✅ Amazon员工权限验证成功');
-            this.replaceExistingChatButton();
-            
-            // 显示员工模式指示器
-            this.showEmployeeModeIndicator();
+            console.log('✅ 聊天按钮已更新为Amazon员工模式');
+            return true;
         } else {
-            console.log('⚠️ 无法验证Amazon员工权限');
-            console.log('请确保：');
-            console.log('1. 已连接Amazon VPN');
-            console.log('2. 已完成Amazon SSO登录');
-            console.log('3. 有权限访问ask.qbusiness.aws.dev');
-            
-            // 回退到免费聊天机器人
-            this.fallbackToFreeChatbot();
+            console.log('❌ 找不到聊天按钮元素');
+            return false;
         }
     }
 
     // 显示员工模式指示器
     showEmployeeModeIndicator() {
+        console.log('📍 显示员工模式指示器...');
+        
+        // 检查是否已经存在指示器
+        if (document.getElementById('employee-mode-indicator')) {
+            return;
+        }
+        
         const indicator = document.createElement('div');
+        indicator.id = 'employee-mode-indicator';
         indicator.innerHTML = '🏢 Amazon Employee Mode';
         indicator.style.cssText = `
             position: fixed;
@@ -141,39 +125,127 @@ class AmazonEmployeeQBusiness {
             font-weight: bold;
             z-index: 10000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease-in;
         `;
         
+        // 添加CSS动画
+        if (!document.getElementById('employee-mode-styles')) {
+            const style = document.createElement('style');
+            style.id = 'employee-mode-styles';
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(-10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
         document.body.appendChild(indicator);
+        console.log('✅ 员工模式指示器已显示');
+    }
+
+    // 检查员工权限并初始化
+    async initialize() {
+        if (this.initialized) {
+            console.log('⚠️ 已经初始化过了');
+            return;
+        }
+        
+        console.log('🔍 开始检查Amazon员工权限...');
+        
+        try {
+            // 显示员工模式指示器（假设在内部网络）
+            this.showEmployeeModeIndicator();
+            
+            // 替换聊天按钮
+            const buttonReplaced = this.replaceExistingChatButton();
+            
+            if (buttonReplaced) {
+                console.log('✅ Amazon员工模式初始化成功');
+                
+                // 显示初始化成功消息
+                setTimeout(() => {
+                    console.log('💡 Amazon员工模式已启用，点击聊天按钮将打开内部Amazon Q Business');
+                }, 1000);
+            } else {
+                console.log('⚠️ 聊天按钮替换失败，可能页面还未完全加载');
+                // 延迟重试
+                setTimeout(() => this.initialize(), 1000);
+                return;
+            }
+            
+            this.initialized = true;
+            
+        } catch (error) {
+            console.error('❌ Amazon员工模式初始化失败:', error);
+            this.fallbackToFreeChatbot();
+        }
     }
 
     // 回退到免费聊天机器人
     fallbackToFreeChatbot() {
         console.log('🔄 回退到免费聊天机器人模式');
-        // 这里可以初始化我们之前创建的免费聊天机器人
-        if (window.TrulySmartChatBot) {
-            const freeChatbot = new window.TrulySmartChatBot();
-            console.log('✅ 免费聊天机器人已启用作为备用方案');
+        
+        // 移除员工模式指示器
+        const indicator = document.getElementById('employee-mode-indicator');
+        if (indicator) {
+            indicator.remove();
         }
+        
+        // 恢复原始聊天按钮
+        const chatButton = document.getElementById('chat-button');
+        if (chatButton) {
+            chatButton.innerHTML = '💬 AI Assistant';
+            chatButton.style.background = '';
+            chatButton.title = 'AI Assistant';
+        }
+        
+        console.log('✅ 已回退到免费聊天机器人');
+    }
+
+    // 手动触发初始化（用于调试）
+    static async manualInit() {
+        console.log('🔧 手动初始化Amazon员工模式...');
+        const instance = new AmazonEmployeeQBusiness();
+        await instance.initialize();
+        return instance;
     }
 }
-
-// 自动检测和初始化
-document.addEventListener('DOMContentLoaded', async () => {
-    // 检查是否为Amazon员工环境
-    const employeeQBusiness = new AmazonEmployeeQBusiness();
-    await employeeQBusiness.initialize();
-});
 
 // 全局可用
 window.AmazonEmployeeQBusiness = AmazonEmployeeQBusiness;
 
+// 多种初始化方式
+function initializeEmployeeMode() {
+    console.log('🚀 初始化Amazon员工模式...');
+    const employeeQBusiness = new AmazonEmployeeQBusiness();
+    employeeQBusiness.initialize();
+    
+    // 保存到全局变量供调试使用
+    window.employeeQBusiness = employeeQBusiness;
+}
+
+// 尝试多种初始化时机
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeEmployeeMode);
+} else {
+    // 如果DOM已经加载完成，立即初始化
+    initializeEmployeeMode();
+}
+
+// 额外的延迟初始化，确保页面完全加载
+setTimeout(initializeEmployeeMode, 2000);
+
 console.log(`
 🏢 Amazon员工Amazon Q Business集成已加载
 
-使用说明:
-1. 确保已连接Amazon VPN
-2. 完成Amazon SSO登录
-3. 系统会自动检测权限并启用相应模式
+调试命令:
+- AmazonEmployeeQBusiness.manualInit() // 手动初始化
+- window.employeeQBusiness.initialize() // 重新初始化
 
-如果无法访问内部服务，系统会自动回退到免费聊天机器人。
+状态检查:
+- 查看控制台日志了解初始化过程
+- 应该看到员工模式指示器在右上角
+- 聊天按钮应该变为橙色
 `);
