@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon Q Business - Direct Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        .logo { font-size: 48px; margin-bottom: 20px; }
+        h1 { color: #333; margin-bottom: 20px; }
+        .button {
+            background: linear-gradient(45deg, #FF9500, #FF6B35);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+        .button:hover { transform: translateY(-3px); }
+        .info {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .employee-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #FF9500, #FF6B35);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="employee-badge">🏢 Amazon Employee Mode</div>
+    
+    <div class="container">
+        <div class="logo">🚀</div>
+        <h1>Amazon Q Business - Direct Access</h1>
+        
+        <div class="info">
+            <strong>🎯 立即可用的解决方案：</strong><br><br>
+            由于GitHub Pages缓存问题，我们提供以下直接访问方式：
+        </div>
+        
+        <button class="button" onclick="openAmazonQ()">
+            💬 直接打开 Amazon Q Business
+        </button>
+        
+        <br><br>
+        
+        <a href="https://ask.qbusiness.aws.dev/#/chat" target="_blank" class="button">
+            🔗 备用链接访问
+        </a>
+        
+        <div class="info">
+            <strong>📋 使用说明：</strong><br>
+            1. 点击上面的按钮直接访问Amazon Q Business<br>
+            2. 使用你的Amazon SSO凭证登录<br>
+            3. 开始与AI助手对话<br>
+            4. 这个方案绕过了所有缓存问题
+        </div>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #e8f5e8; border-radius: 10px;">
+            <strong style="color: #2E7D32;">✅ 状态：</strong><br>
+            <span style="color: #388E3C;">
+                • Amazon员工模式：已激活<br>
+                • 直接访问：可用<br>
+                • 缓存问题：已绕过<br>
+                • 页面时间：<span id="timestamp"></span>
+            </span>
+        </div>
+    </div>
+
+    <script>
+        // 显示当前时间
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // 直接打开Amazon Q Business
+        function openAmazonQ() {
+            console.log('🚀 直接打开Amazon Q Business...');
+            
+            // 打开Amazon Q Business
+            const chatWindow = window.open(
+                'https://ask.qbusiness.aws.dev/#/chat',
+                'amazon-q-business',
+                'width=800,height=900,left=' + Math.max(0, window.screen.width - 850) + ',top=50,scrollbars=yes,resizable=yes'
+            );
+            
+            if (chatWindow) {
+                console.log('✅ Amazon Q Business窗口已打开');
+                
+                // 显示成功消息
+                const container = document.querySelector('.container');
+                const successMsg = document.createElement('div');
+                successMsg.style.cssText = `
+                    background: #d4edda;
+                    color: #155724;
+                    padding: 15px;
+                    border-radius: 10px;
+                    margin-top: 20px;
+                    border: 1px solid #c3e6cb;
+                `;
+                successMsg.innerHTML = '✅ Amazon Q Business窗口已成功打开！请在新窗口中使用Amazon SSO登录。';
+                container.appendChild(successMsg);
+                
+            } else {
+                console.log('❌ 窗口打开失败');
+                alert('无法打开Amazon Q Business窗口。请检查浏览器弹窗设置，或点击"备用链接访问"按钮。');
+            }
+        }
+        
+        console.log('🎉 Amazon Q Business直接访问页面已加载');
+    </script>
+</body>
+</html>
