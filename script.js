@@ -134,8 +134,8 @@ class AmazonQChatWidget {
         this.conversationId = this.generateConversationId();
         this.config = window.AMAZON_Q_CONFIG || {};
         
-        // 使用修复版智能聊天机器人
-        this.smartBot = new window.FixedSmartChatBot();
+        // 使用真正智能的聊天机器人
+        this.trulySmartBot = new window.TrulySmartChatBot();
         
         this.init();
     }
@@ -307,11 +307,11 @@ class AmazonQChatWidget {
     }
     
     async getDemoResponse(message) {
-        // 使用修复版智能聊天机器人
-        if (this.smartBot) {
-            console.log('🤖 使用修复版智能聊天机器人处理消息:', message);
+        // 使用真正智能的聊天机器人
+        if (this.trulySmartBot) {
+            console.log('🧠 使用真正智能的聊天机器人处理消息:', message);
             try {
-                const response = await this.smartBot.generateResponse(message);
+                const response = await this.trulySmartBot.generateResponse(message);
                 console.log('✅ 智能机器人回复:', response);
                 return response;
             } catch (error) {
@@ -319,15 +319,9 @@ class AmazonQChatWidget {
             }
         }
         
-        // 备用简单回复
+        // 备用回复
         await this.delay(1000);
-        
-        const langSwitcher = document.querySelector('.lang-btn');
-        const isEnglish = !langSwitcher || langSwitcher.textContent === 'CN';
-        
-        return isEnglish ? 
-            'Hello! I\'m your AI logistics assistant. How can I help you today?' :
-            '您好！我是您的AI物流助手。今天有什么可以帮助您的吗？';
+        return '抱歉，智能助手暂时不可用。请稍后再试。';
     }
     
     delay(ms) {

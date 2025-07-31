@@ -1,0 +1,12 @@
+{
+    "BudgetName": "AmazonQ-Test-Budget",
+    "BudgetLimit": {
+        "Amount": "5.00",
+        "Unit": "USD"
+    },
+    "TimeUnit": "MONTHLY",
+    "BudgetType": "COST",
+    "CostFilters": {
+        "Service": ["Amazon Q Business"]
+    }
+}
