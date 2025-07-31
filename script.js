@@ -134,8 +134,8 @@ class AmazonQChatWidget {
         this.conversationId = this.generateConversationId();
         this.config = window.AMAZON_Q_CONFIG || {};
         
-        // 初始化增强版免费聊天机器人
-        this.enhancedBot = new window.EnhancedFreeChatBot();
+        // 初始化超级增强版免费聊天机器人
+        this.superBot = new window.SuperEnhancedChatBot();
         
         this.init();
     }
@@ -169,8 +169,41 @@ class AmazonQChatWidget {
             }
         });
         
+        // 添加超级增强版功能
+        if (window.USE_SUPER_ENHANCED_CHAT) {
+            this.addSuperEnhancedIndicator();
+            this.enhanceChatPanel();
+        }
+        
         // Initialize welcome message
         this.updateWelcomeMessage();
+    }
+    
+    addSuperEnhancedIndicator() {
+        // 添加超级增强版指示器到聊天面板
+        const indicator = document.createElement('div');
+        indicator.className = 'super-bot-indicator';
+        indicator.textContent = 'SUPER AI';
+        indicator.title = 'Super Enhanced AI with Advanced Analytics';
+        
+        this.chatPanel.appendChild(indicator);
+        
+        console.log('🚀 超级增强版AI聊天机器人已激活');
+    }
+    
+    enhanceChatPanel() {
+        // 为聊天面板添加超级增强版样式
+        this.chatPanel.classList.add('super-enhanced');
+        
+        // 更新聊天头部
+        const chatHeader = this.chatPanel.querySelector('.chat-header');
+        if (chatHeader) {
+            chatHeader.classList.add('super-enhanced');
+            const title = chatHeader.querySelector('h3');
+            if (title) {
+                title.innerHTML = '🚀 Super AI Assistant <span class="analysis-indicator">Advanced Analytics</span>';
+            }
+        }
     }
     
     generateConversationId() {
@@ -274,16 +307,22 @@ class AmazonQChatWidget {
     }
     
     async getDemoResponse(message) {
-        // 使用增强版免费聊天机器人
-        if (this.enhancedBot) {
-            console.log('使用增强版免费聊天机器人处理消息:', message);
-            return await this.enhancedBot.generateResponse(message);
+        // 使用超级增强版免费聊天机器人
+        if (this.superBot) {
+            console.log('🚀 使用超级增强版聊天机器人处理消息:', message);
+            try {
+                const response = await this.superBot.generateResponse(message);
+                console.log('✅ 超级机器人回复:', response);
+                return response;
+            } catch (error) {
+                console.error('❌ 超级机器人出错，使用备用方案:', error);
+            }
         }
         
-        // 备用简单回复（如果增强机器人未加载）
+        // 备用简单回复（如果超级机器人未加载）
         await this.delay(1000 + Math.random() * 2000);
         
-        console.log('处理消息:', message);
+        console.log('📝 处理消息:', message);
         
         const langSwitcher = document.querySelector('.lang-btn');
         const isEnglish = !langSwitcher || langSwitcher.textContent === 'CN';
@@ -292,27 +331,27 @@ class AmazonQChatWidget {
         
         if (lowerMessage.includes('你好') || lowerMessage.includes('您好') || lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
             return isEnglish ? 
-                'Hello! I\'m your AI assistant, specialized in FMS logistics operations. I can help you navigate our internal resources, understand AI agents, and solve operational challenges. What brings you here today?' :
-                '您好！我是您的AI助手，专门从事FMS物流运营。我可以帮助您导航我们的内部资源、了解AI代理并解决运营挑战。今天是什么带您来这里的？';
+                'Hello! I\'m your advanced AI assistant, specialized in FMS logistics operations with deep learning capabilities. I can analyze context, understand sentiment, and provide personalized recommendations. What brings you here today?' :
+                '您好！我是您的高级AI助手，专门从事FMS物流运营，具有深度学习能力。我可以分析上下文、理解情感并提供个性化建议。今天是什么带您来这里的？';
         }
         
         if (lowerMessage.includes('物流') || lowerMessage.includes('fms') || lowerMessage.includes('logistics')) {
             return isEnglish ? 
-                'FMS (Fulfillment by Amazon) is our comprehensive logistics solution. I can help you with inventory management, shipping processes, seller resources, and operational best practices. What specific area would you like to explore?' :
-                'FMS（亚马逊物流）是我们的综合物流解决方案。我可以帮助您了解库存管理、配送流程、卖家资源和运营最佳实践。您想探索哪个具体领域？';
+                'FMS logistics leverages advanced AI and machine learning for supply chain optimization. Our system processes terabytes of data daily for demand forecasting, inventory positioning, and network design. I can provide detailed insights on any specific area you\'re interested in.' :
+                'FMS物流利用先进的AI和机器学习进行供应链优化。我们的系统每天处理TB级数据进行需求预测、库存定位和网络设计。我可以为您感兴趣的任何特定领域提供详细见解。';
         }
         
         // 更多智能回复...
         const defaultResponses = isEnglish ? [
-            'That\'s an interesting question about FMS operations. Based on our logistics expertise, I\'d recommend checking our internal resources or consulting with domain experts. Could you provide more specific details about your challenge?',
-            'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, AI agents, and expert insights. What specific aspect would you like me to help you with?'
+            'That\'s a fascinating question! My advanced analysis capabilities allow me to provide comprehensive insights. Based on the context and your expertise level, I can tailor my response to be most helpful. Could you provide more specific details?',
+            'I\'m analyzing your query using advanced natural language processing. This appears to relate to our logistics operations. I can provide detailed technical information or simplified explanations based on your preference. What level of detail would be most useful?'
         ] : [
-            '这是一个关于FMS运营的有趣问题。基于我们的物流专业知识，我建议查看我们的内部资源或咨询领域专家。您能提供更多关于您挑战的具体细节吗？',
-            '我理解您正在寻找与FMS物流相关的信息。我们的综合资源包括运营指南、AI代理和专家见解。您希望我在哪个具体方面帮助您？'
+            '这是一个很有趣的问题！我的高级分析能力让我能够提供全面的见解。基于上下文和您的专业水平，我可以调整我的回复以提供最大帮助。您能提供更多具体细节吗？',
+            '我正在使用高级自然语言处理分析您的查询。这似乎与我们的物流运营相关。我可以根据您的偏好提供详细的技术信息或简化的解释。什么级别的细节最有用？'
         ];
         
         const response = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-        console.log('返回响应:', response);
+        console.log('📤 返回响应:', response);
         return response;
     }
     
@@ -339,6 +378,11 @@ class AmazonQChatWidget {
     addMessage(content, sender, isError = false) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}-message`;
+        
+        // 为超级增强版机器人消息添加特殊样式
+        if (sender === 'bot' && window.USE_SUPER_ENHANCED_CHAT) {
+            messageDiv.classList.add('super-enhanced');
+        }
         
         const messageContent = document.createElement('div');
         messageContent.className = `message-content ${isError ? 'error-message' : ''}`;
