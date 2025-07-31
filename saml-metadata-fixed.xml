@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" entityID="https://logistics-hub-test">
+  <IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <KeyDescriptor use="signing">
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <X509Data>
+          <X509Certificate>MIICXjCCAcegAwIBAgIJAKS0mGGmU9NEMA0GCSqGSIb3DQEBBQUAMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwHhcNMTQwNzE0MTQzNjQzWhcNMTUwNzE0MTQzNjQzWjBFMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYK8imMuRi/03z0K1Zi0WnvfFHvwlYeyK9Na6XJYaUoIDAtB92kWdGMdAQhLciHnAjkXLI6W15OoV3gA/ElRZ1xUpxTMhjP6PyY5wqT5r6y8FxbiiFKKAnHmUcrgfVW28tQ1hviTipzSNqL9FtpP3jRRJuwpQHX/BXZ6OmqQdZWwIDAQABo1AwTjAdBgNVHQ4EFgQUZqYW5Gvv9i7HvWVlMQxOGMy7u90wHwYDVR0jBBgwFoAUZqYW5Gvv9i7HvWVlMQxOGMy7u90wDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQUFAAOBgQCmmpy2WKfkdseQ8q0BXhqKWmpYodz98SXKfVMdqKHnyafCsez9VdWAjLuNSdGHlIJklWHXs2EUOOquwTJq3xzHjn9dt5Uu2+ucpMh4jQwf7Ps2Ly+Y4+lobaFT7109HwEOXOdL7juXwTYdGjQlRK5TdIqHEml8vQjfHuTtT7I8VQ==</X509Certificate>
+        </X509Data>
+      </KeyInfo>
+    </KeyDescriptor>
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://logistics-hub-test/sso"/>
+  </IDPSSODescriptor>
+</EntityDescriptor>

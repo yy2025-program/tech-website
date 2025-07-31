@@ -134,6 +134,9 @@ class AmazonQChatWidget {
         this.conversationId = this.generateConversationId();
         this.config = window.AMAZON_Q_CONFIG || {};
         
+        // 初始化增强版免费聊天机器人
+        this.enhancedBot = new window.EnhancedFreeChatBot();
+        
         this.init();
     }
     
@@ -271,24 +274,26 @@ class AmazonQChatWidget {
     }
     
     async getDemoResponse(message) {
-        // Enhanced demo responses for FMS logistics with Chinese support
-        await this.delay(1000 + Math.random() * 2000); // Simulate API delay
+        // 使用增强版免费聊天机器人
+        if (this.enhancedBot) {
+            console.log('使用增强版免费聊天机器人处理消息:', message);
+            return await this.enhancedBot.generateResponse(message);
+        }
         
-        console.log('处理消息:', message); // 调试日志
+        // 备用简单回复（如果增强机器人未加载）
+        await this.delay(1000 + Math.random() * 2000);
         
-        // Check current language
+        console.log('处理消息:', message);
+        
         const langSwitcher = document.querySelector('.lang-btn');
         const isEnglish = !langSwitcher || langSwitcher.textContent === 'CN';
         
-        console.log('当前语言:', isEnglish ? 'English' : 'Chinese'); // 调试日志
-        
         const lowerMessage = message.toLowerCase();
         
-        // 直接的关键词匹配和响应
         if (lowerMessage.includes('你好') || lowerMessage.includes('您好') || lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
             return isEnglish ? 
-                'Hello! I\'m Amazon Q, specialized in FMS logistics operations. I can help you navigate our internal resources, understand AI agents, and solve operational challenges. What brings you here today?' :
-                '您好！我是Amazon Q，专门从事FMS物流运营。我可以帮助您导航我们的内部资源、了解AI代理并解决运营挑战。今天是什么带您来这里的？';
+                'Hello! I\'m your AI assistant, specialized in FMS logistics operations. I can help you navigate our internal resources, understand AI agents, and solve operational challenges. What brings you here today?' :
+                '您好！我是您的AI助手，专门从事FMS物流运营。我可以帮助您导航我们的内部资源、了解AI代理并解决运营挑战。今天是什么带您来这里的？';
         }
         
         if (lowerMessage.includes('物流') || lowerMessage.includes('fms') || lowerMessage.includes('logistics')) {
@@ -297,67 +302,17 @@ class AmazonQChatWidget {
                 'FMS（亚马逊物流）是我们的综合物流解决方案。我可以帮助您了解库存管理、配送流程、卖家资源和运营最佳实践。您想探索哪个具体领域？';
         }
         
-        if (lowerMessage.includes('库存') || lowerMessage.includes('inventory')) {
-            return isEnglish ?
-                'For inventory management in FMS, I recommend checking our SCA Central VoS Bank for the latest inventory optimization strategies. You can also access real-time inventory tracking through our internal dashboards. Would you like me to guide you to specific resources?' :
-                '对于FMS的库存管理，我建议查看我们的SCA中央VoS银行以获取最新的库存优化策略。您还可以通过我们的内部仪表板访问实时库存跟踪。您希望我为您指导具体资源吗？';
-        }
-        
-        if (lowerMessage.includes('配送') || lowerMessage.includes('运输') || lowerMessage.includes('shipping')) {
-            return isEnglish ?
-                'Our shipping processes are optimized for efficiency and cost-effectiveness. Key areas include: 1) Inbound shipping protocols, 2) Outbound delivery optimization, 3) Cross-docking procedures. Which shipping aspect interests you most?' :
-                '我们的配送流程经过优化，注重效率和成本效益。关键领域包括：1）入库配送协议，2）出库配送优化，3）交叉转运程序。您对哪个配送方面最感兴趣？';
-        }
-        
-        if (lowerMessage.includes('卖家') || lowerMessage.includes('seller')) {
-            return isEnglish ?
-                'For seller-facing resources, we have comprehensive support materials including: seller learning intake forms, work plans, and troubleshooting guides. You can access these through the FMS Seller Facing Resources menu. Need help with a specific seller issue?' :
-                '对于面向卖家的资源，我们有全面的支持材料，包括：卖家学习表单、工作计划和故障排除指南。您可以通过FMS卖家资源菜单访问这些资源。需要帮助解决特定的卖家问题吗？';
-        }
-        
-        if (lowerMessage.includes('自动化') || lowerMessage.includes('automation')) {
-            return isEnglish ?
-                'Our data and automation tools include advanced analytics for demand forecasting, automated inventory replenishment, and process optimization algorithms. These tools help reduce manual work and improve accuracy. What automation challenge are you facing?' :
-                '我们的数据和自动化工具包括需求预测的高级分析、自动库存补充和流程优化算法。这些工具有助于减少手工工作并提高准确性。您面临什么自动化挑战？';
-        }
-        
-        if (lowerMessage.includes('ai') || lowerMessage.includes('人工智能') || lowerMessage.includes('ai agent')) {
-            return isEnglish ?
-                'Our AI Agent solutions focus on intelligent automation, predictive analytics, and smart decision support. These AI-powered systems help optimize logistics operations, predict demand patterns, and provide real-time recommendations. Which AI capability interests you most?' :
-                '我们的AI代理解决方案专注于智能自动化、预测分析和智能决策支持。这些AI驱动的系统有助于优化物流运营、预测需求模式并提供实时建议。您对哪种AI能力最感兴趣？';
-        }
-        
-        if (lowerMessage.includes('gemba') || lowerMessage.includes('现场走访')) {
-            return isEnglish ?
-                'Gemba walks are essential for understanding actual processes. Our methodology includes: 1) Structured observation techniques, 2) Systematic data collection, 3) Action planning based on findings. Would you like guidance on conducting effective gemba walks?' :
-                'Gemba走访对于理解实际流程至关重要。我们的方法包括：1）结构化观察技术，2）系统性数据收集，3）基于发现的行动计划。您希望获得进行有效gemba走访的指导吗？';
-        }
-        
-        if (lowerMessage.includes('帮助') || lowerMessage.includes('help')) {
-            return isEnglish ?
-                'I can assist you with FMS logistics operations including: inventory management, shipping processes, seller support, automation tools, AI agents, gemba walk methodology, and domain expertise. What would you like to explore?' :
-                '我可以协助您处理FMS物流运营，包括：库存管理、配送流程、卖家支持、自动化工具、AI代理、gemba走访方法和领域专业知识。您想探索什么？';
-        }
-        
-        if (lowerMessage.includes('谢谢') || lowerMessage.includes('感谢') || lowerMessage.includes('thank')) {
-            return isEnglish ?
-                'You\'re welcome! I\'m here to help with any FMS logistics questions or challenges you might have. Feel free to ask about our resources, processes, or AI agents anytime.' :
-                '不客气！我在这里帮助您解决任何FMS物流问题或挑战。随时可以询问我们的资源、流程或AI代理。';
-        }
-        
-        // Default responses
+        // 更多智能回复...
         const defaultResponses = isEnglish ? [
             'That\'s an interesting question about FMS operations. Based on our logistics expertise, I\'d recommend checking our internal resources or consulting with domain experts. Could you provide more specific details about your challenge?',
-            'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, AI agents, and expert insights. What specific aspect would you like me to help you with?',
-            'For complex FMS logistics questions like this, I suggest reviewing our work plans and AI agent documentation. Our domain members have extensive experience with similar challenges. Would you like me to direct you to specific resources?'
+            'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, AI agents, and expert insights. What specific aspect would you like me to help you with?'
         ] : [
             '这是一个关于FMS运营的有趣问题。基于我们的物流专业知识，我建议查看我们的内部资源或咨询领域专家。您能提供更多关于您挑战的具体细节吗？',
-            '我理解您正在寻找与FMS物流相关的信息。我们的综合资源包括运营指南、AI代理和专家见解。您希望我在哪个具体方面帮助您？',
-            '对于这样复杂的FMS物流问题，我建议查看我们的工作计划和AI代理文档。我们的领域成员在类似挑战方面有丰富经验。您希望我为您指向特定资源吗？'
+            '我理解您正在寻找与FMS物流相关的信息。我们的综合资源包括运营指南、AI代理和专家见解。您希望我在哪个具体方面帮助您？'
         ];
         
         const response = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-        console.log('返回响应:', response); // 调试日志
+        console.log('返回响应:', response);
         return response;
     }
     

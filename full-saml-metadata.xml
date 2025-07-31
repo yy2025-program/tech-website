@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" 
+                  xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+                  entityID="https://logistics-hub-saml-test.example.com">
+  <IDPSSODescriptor WantAuthnRequestsSigned="false" 
+                    protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    
+    <!-- Key Descriptor for Signing -->
+    <KeyDescriptor use="signing">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>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</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </KeyDescriptor>
+    
+    <!-- Key Descriptor for Encryption -->
+    <KeyDescriptor use="encryption">
+      <ds:KeyInfo>
+        <ds:X509Data>
+          <ds:X509Certificate>MIIDXTCCAkWgAwIBAgIJALmVKuIFn2u6MA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNVBAYTAkFVMRMwEQYDVQQIDApTb21lLVN0YXRlMSEwHwYDVQQKDBhJbnRlcm5ldCBXaWRnaXRzIFB0eSBMdGQwHhcNMjQwMTAxMDAwMDAwWhcNMjUwMTAxMDAwMDAwWjBFMQswCQYDVQQGEwJBVTETMBEGA1UECAwKU29tZS1TdGF0ZTEhMB8GA1UECgwYSW50ZXJuZXQgV2lkZ2l0cyBQdHkgTHRkMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuVUqogWfa7owDQYJKoZIhvcNAQELBQAwRTELMAkGA1UEBhMCQVUxEzARBgNVBAgMClNvbWUtU3RhdGUxITAfBgNVBAoMGEludGVybmV0IFdpZGdpdHMgUHR5IEx0ZDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALlVKqIFn2u6wIDAQABo1AwTjAdBgNVHQ4EFgQUZqYW5Gvv9i7HvWVlMQxOGMy7u90wHwYDVR0jBBgwFoAUZqYW5Gvv9i7HvWVlMQxOGMy7u90wDAYDVR0TBAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEAuVUqogWfa7rAjUPQQQNhZm5eAJEXKQaNQwynqfMrSxhiuv4mgpbfrHyuAQNOObwNO7fYDADGGIJrKxCrZyPww0xZXyUIniWkKANYIcGBgzAzBfUnyiGAMZGAI4ewrwIwVAcKyaEiayeJEMUBjjdVGOGIyPiaLDboyVZ4H6M0u4gCjPT9nhZdMVMEALw4f9t1mYFBhvETKzWVqHRYVNjeCXaMLVY6fEWCRE3sBDufETduP0aAhPPw0xeI1lxbFJxFI7elzOKQANxfTF3WRuHNiYQjKuM2CE/CfAUoEbxLQiPLTwFBcNGtQA0FMnTzU2NlbHBhbXduaVzP</ds:X509Certificate>
+        </ds:X509Data>
+      </ds:KeyInfo>
+    </KeyDescriptor>
+    
+    <!-- Supported Name ID Formats -->
+    <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+    <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+    <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</NameIDFormat>
+    
+    <!-- Single Sign-On Service -->
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+                         Location="https://logistics-hub-saml-test.example.com/sso"/>
+    <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" 
+                         Location="https://logistics-hub-saml-test.example.com/sso"/>
+    
+    <!-- Single Logout Service -->
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+                         Location="https://logistics-hub-saml-test.example.com/slo"/>
+    <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" 
+                         Location="https://logistics-hub-saml-test.example.com/slo"/>
+    
+    <!-- Attributes -->
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" 
+               NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname" 
+               NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname" 
+               NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+    <Attribute Name="http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name" 
+               NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"/>
+               
+  </IDPSSODescriptor>
+</EntityDescriptor>
