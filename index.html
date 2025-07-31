@@ -278,73 +278,11 @@
 
     <!-- 直接嵌入Amazon员工模式代码 -->
     <script>
-        console.log('🔧 直接嵌入的Amazon员工模式开始执行...');
+        console.log('🔧 Amazon员工模式检测开始...');
         
-        // 创建调试面板
-        function createDebugPanel() {
-            const debugPanel = document.createElement('div');
-            debugPanel.id = 'debug-panel';
-            debugPanel.style.cssText = `
-                position: fixed !important;
-                top: 50px !important;
-                right: 10px !important;
-                width: 300px !important;
-                max-height: 400px !important;
-                background: rgba(0, 0, 0, 0.9) !important;
-                color: #00ff00 !important;
-                padding: 15px !important;
-                border-radius: 10px !important;
-                font-family: monospace !important;
-                font-size: 12px !important;
-                z-index: 99999 !important;
-                overflow-y: auto !important;
-                border: 2px solid #00ff00 !important;
-            `;
-            
-            debugPanel.innerHTML = `
-                <div style="color: #ffff00; font-weight: bold; margin-bottom: 10px;">
-                    🔧 Amazon员工模式调试 (内嵌版)
-                </div>
-                <div id="debug-content">正在初始化...</div>
-                <div style="margin-top: 10px;">
-                    <button onclick="forceInitEmployee()" style="background: #ff6600; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">强制初始化</button>
-                    <button onclick="document.getElementById('debug-panel').remove()" style="background: #ff0000; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-left: 5px;">关闭</button>
-                </div>
-            `;
-            
-            document.body.appendChild(debugPanel);
-            return debugPanel;
-        }
-        
-        // 添加调试信息
-        function addDebugInfo(message, type = 'info') {
-            const debugContent = document.getElementById('debug-content');
-            if (debugContent) {
-                const colors = {
-                    info: '#00ff00',
-                    success: '#00ffff', 
-                    error: '#ff0000',
-                    warning: '#ffff00'
-                };
-                
-                const timestamp = new Date().toLocaleTimeString();
-                debugContent.innerHTML += `
-                    <div style="color: ${colors[type]}; margin: 2px 0;">
-                        [${timestamp}] ${message}
-                    </div>
-                `;
-                debugContent.scrollTop = debugContent.scrollHeight;
-            }
-            console.log(message);
-        }
-        
-        // 强制显示员工模式指示器
-        function forceShowEmployeeIndicator() {
-            addDebugInfo('🏢 强制显示员工模式指示器...', 'info');
-            
-            const oldIndicator = document.getElementById('employee-mode-indicator');
-            if (oldIndicator) oldIndicator.remove();
-            
+        // 立即显示员工模式指示器
+        function showEmployeeMode() {
+            // 创建员工模式指示器
             const indicator = document.createElement('div');
             indicator.id = 'employee-mode-indicator';
             indicator.innerHTML = '🏢 Amazon Employee Mode';
@@ -358,23 +296,54 @@
                 border-radius: 20px !important;
                 font-size: 12px !important;
                 font-weight: bold !important;
-                z-index: 99998 !important;
+                z-index: 99999 !important;
                 box-shadow: 0 2px 10px rgba(0,0,0,0.2) !important;
                 font-family: Arial, sans-serif !important;
             `;
-            
             document.body.appendChild(indicator);
-            addDebugInfo('✅ 员工模式指示器已显示', 'success');
+            
+            // 创建调试面板
+            const debugPanel = document.createElement('div');
+            debugPanel.innerHTML = `
+                <div style="color: #ffff00; font-weight: bold; margin-bottom: 10px;">
+                    🔧 Amazon员工模式已激活
+                </div>
+                <div style="color: #00ff00; font-size: 11px;">
+                    ✅ 员工模式指示器已显示<br>
+                    ✅ 聊天按钮已更新<br>
+                    🎉 点击聊天按钮访问Amazon Q Business
+                </div>
+                <button onclick="this.parentElement.remove()" style="
+                    background: #ff0000; color: white; border: none; 
+                    padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-top: 10px;
+                ">关闭</button>
+            `;
+            debugPanel.style.cssText = `
+                position: fixed !important;
+                top: 60px !important;
+                right: 10px !important;
+                width: 250px !important;
+                background: rgba(0, 0, 0, 0.9) !important;
+                color: #00ff00 !important;
+                padding: 15px !important;
+                border-radius: 10px !important;
+                font-family: monospace !important;
+                font-size: 12px !important;
+                z-index: 99998 !important;
+                border: 2px solid #00ff00 !important;
+            `;
+            document.body.appendChild(debugPanel);
+            
+            console.log('✅ Amazon员工模式指示器和调试面板已显示');
         }
         
-        // 强制替换聊天按钮
-        function forceReplaceButton() {
-            addDebugInfo('🔄 查找聊天按钮...', 'info');
-            
+        // 替换聊天按钮功能
+        function replaceChat() {
             const chatButton = document.getElementById('chat-button');
             if (chatButton) {
-                addDebugInfo('✅ 找到聊天按钮，开始替换...', 'success');
+                console.log('🔄 找到聊天按钮，正在替换...');
                 
+                // 更新按钮样式和文本
                 chatButton.innerHTML = '💬 Amazon Q Business (Internal)';
                 chatButton.style.cssText = `
                     background: linear-gradient(45deg, #FF9500, #FF6B35) !important;
@@ -384,102 +353,77 @@
                     border-radius: 25px !important;
                     font-weight: bold !important;
                     cursor: pointer !important;
+                    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3) !important;
                 `;
                 chatButton.title = 'Amazon Q Business - Employee Access';
                 
+                // 移除所有现有事件监听器
                 const newButton = chatButton.cloneNode(true);
                 chatButton.parentNode.replaceChild(newButton, chatButton);
                 
+                // 添加Amazon Q Business功能
                 newButton.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    addDebugInfo('🖱️ Amazon员工按钮被点击！', 'success');
+                    console.log('🖱️ Amazon Q Business按钮被点击');
                     
+                    // 直接打开Amazon Q Business
                     const chatWindow = window.open(
                         'https://ask.qbusiness.aws.dev/#/chat',
-                        'amazon-q-internal',
+                        'amazon-q-business',
                         'width=500,height=700,left=' + (window.screen.width - 550) + ',top=50,scrollbars=yes,resizable=yes'
                     );
                     
                     if (chatWindow) {
-                        addDebugInfo('✅ Amazon Q Business窗口已打开', 'success');
+                        console.log('✅ Amazon Q Business窗口已打开');
                     } else {
-                        addDebugInfo('❌ 无法打开窗口，请检查浏览器弹窗设置', 'error');
+                        alert('无法打开窗口，请检查浏览器弹窗设置');
                     }
                 });
                 
-                addDebugInfo('✅ 聊天按钮替换完成', 'success');
+                console.log('✅ 聊天按钮已替换为Amazon Q Business');
                 return true;
             } else {
-                addDebugInfo('❌ 未找到聊天按钮 (ID: chat-button)', 'error');
-                
-                // 查找所有可能的按钮
-                const allButtons = document.querySelectorAll('button, .chat-button, [class*="chat"], [id*="chat"]');
-                addDebugInfo(`📋 页面上找到 ${allButtons.length} 个相关元素`, 'info');
-                
-                allButtons.forEach((btn, index) => {
-                    addDebugInfo(`按钮${index + 1}: ID="${btn.id}", Class="${btn.className}", Text="${btn.textContent?.substring(0, 20)}"`, 'info');
-                });
-                
+                console.log('❌ 未找到聊天按钮，1秒后重试...');
+                setTimeout(replaceChat, 1000);
                 return false;
             }
         }
         
-        // 主初始化函数
-        function forceInitEmployee() {
-            addDebugInfo('🚀 开始强制初始化Amazon员工模式...', 'info');
-            addDebugInfo(`📄 当前URL: ${window.location.href}`, 'info');
-            addDebugInfo(`📄 页面加载状态: ${document.readyState}`, 'info');
+        // 初始化Amazon员工模式
+        function initEmployeeMode() {
+            console.log('🚀 初始化Amazon员工模式...');
             
             // 禁用演示模式
             if (window.AMAZON_Q_CONFIG) {
                 window.AMAZON_Q_CONFIG.useDemo = false;
-                addDebugInfo('✅ 已禁用演示模式', 'success');
+                console.log('✅ 已禁用演示模式');
             }
             
-            forceShowEmployeeIndicator();
+            // 显示员工模式界面
+            showEmployeeMode();
             
-            if (!forceReplaceButton()) {
-                addDebugInfo('⏳ 按钮替换失败，2秒后重试...', 'warning');
-                setTimeout(() => {
-                    if (!forceReplaceButton()) {
-                        addDebugInfo('⏳ 再次失败，5秒后最后重试...', 'warning');
-                        setTimeout(forceReplaceButton, 5000);
-                    }
-                }, 2000);
-            }
-            
-            addDebugInfo('🎉 Amazon员工模式初始化完成！', 'success');
+            // 替换聊天按钮
+            setTimeout(replaceChat, 500);
+            setTimeout(replaceChat, 2000);
+            setTimeout(replaceChat, 5000);
         }
         
-        // 页面加载完成后立即执行
-        function initEmbeddedMode() {
-            console.log('📄 内嵌版Amazon员工模式开始初始化...');
-            
-            // 立即创建调试面板
-            createDebugPanel();
-            addDebugInfo('📄 内嵌版调试模式已启动', 'success');
-            
-            // 延迟执行初始化
-            setTimeout(forceInitEmployee, 1000);
-            setTimeout(forceInitEmployee, 3000);
-            setTimeout(forceInitEmployee, 5000);
-        }
-        
-        // 多种初始化方式
+        // 多种方式确保初始化
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initEmbeddedMode);
+            document.addEventListener('DOMContentLoaded', initEmployeeMode);
         } else {
-            initEmbeddedMode();
+            initEmployeeMode();
         }
         
-        // 立即执行一次
-        setTimeout(initEmbeddedMode, 100);
+        // 延迟初始化确保成功
+        setTimeout(initEmployeeMode, 1000);
+        setTimeout(initEmployeeMode, 3000);
         
-        // 全局函数
-        window.forceInitEmployee = forceInitEmployee;
+        // 全局函数供调试使用
+        window.initEmployeeMode = initEmployeeMode;
         
-        console.log('✅ 内嵌版Amazon员工模式代码加载完成');
+        console.log('✅ Amazon员工模式代码加载完成');
     </script>
     
     <script src="script.js"></script>
