@@ -133,6 +133,10 @@ class AmazonQChatWidget {
         this.conversationId = this.generateConversationId();
         this.config = window.AMAZON_Q_CONFIG || {};
         
+        // 初始化增强聊天机器人
+        this.enhancedBot = (window.USE_ENHANCED_CHAT && window.EnhancedChatBot) ? 
+            new window.EnhancedChatBot() : null;
+        
         this.init();
     }
     

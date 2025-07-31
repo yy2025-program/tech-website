@@ -1,0 +1,54 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "qbusiness:CreateApplication",
+                "qbusiness:GetApplication",
+                "qbusiness:ListApplications",
+                "qbusiness:UpdateApplication",
+                "qbusiness:DeleteApplication",
+                "qbusiness:ChatSync",
+                "qbusiness:Chat",
+                "qbusiness:ListConversations",
+                "qbusiness:GetConversation",
+                "qbusiness:DeleteConversation",
+                "qbusiness:CreateRetriever",
+                "qbusiness:GetRetriever",
+                "qbusiness:ListRetrievers",
+                "qbusiness:UpdateRetriever",
+                "qbusiness:DeleteRetriever",
+                "qbusiness:CreateIndex",
+                "qbusiness:GetIndex",
+                "qbusiness:ListIndices",
+                "qbusiness:UpdateIndex",
+                "qbusiness:DeleteIndex",
+                "qbusiness:CreateDataSource",
+                "qbusiness:GetDataSource",
+                "qbusiness:ListDataSources",
+                "qbusiness:UpdateDataSource",
+                "qbusiness:DeleteDataSource",
+                "qbusiness:StartDataSourceSyncJob",
+                "qbusiness:StopDataSourceSyncJob",
+                "qbusiness:ListDataSourceSyncJobs",
+                "qbusiness:GetDataSourceSyncJob"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "sts:GetCallerIdentity"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::*:role/service-role/AmazonQBusinessServiceRole*"
+        }
+    ]
+}

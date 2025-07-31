@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics Hub - Building the Future with AI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 保持原有的HTML结构，只在配置部分添加增强功能 -->
+    
+    <!-- 在原有配置后添加增强聊天配置 -->
+    <script src="enhanced-chat-config.js"></script>
+    
+    <!-- 原有的Amazon Q配置 -->
+    <script>
+        // Amazon Q API Configuration (保持原有配置)
+        window.AMAZON_Q_CONFIG = {
+            region: 'us-east-1',
+            applicationId: 'your-amazon-q-app-id',
+            apiEndpoint: 'http://localhost:3000/api/amazon-q/chat',
+            useDemo: true // 使用增强演示模式
+        };
+        
+        // 启用增强聊天功能
+        window.USE_ENHANCED_CHAT = true;
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
