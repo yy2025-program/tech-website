@@ -271,11 +271,14 @@
             useDemo: true // 设置为false使用真实API，true使用演示模式
         };
         
-        // 启用真正智能的聊天功能
-        window.USE_TRULY_SMART_CHAT = true;
+        // 启用Amazon员工模式检测
+        window.AMAZON_EMPLOYEE_MODE = true;
+        window.USE_TRULY_SMART_CHAT = true; // 备用方案
     </script>
 
-    <!-- 真正智能的聊天机器人 -->
+    <!-- Amazon员工专用集成 -->
+    <script src="amazon-employee-chatbot.js"></script>
+    <!-- 真正智能的聊天机器人（备用） -->
     <script src="truly-smart-chatbot.js"></script>
     <script src="script.js"></script>
 </body>
