@@ -128,6 +128,7 @@ class AmazonQChatWidget {
         this.sendButton = document.getElementById('send-button');
         this.chatMessages = document.getElementById('chat-messages');
         this.chatStatus = document.getElementById('chat-status');
+        this.scrollToBottomBtn = document.getElementById('scroll-to-bottom');
         
         this.isOpen = false;
         this.conversationId = this.generateConversationId();
@@ -153,6 +154,14 @@ class AmazonQChatWidget {
                 this.sendMessage();
             }
         });
+        
+        // Scroll to bottom button
+        if (this.scrollToBottomBtn) {
+            this.scrollToBottomBtn.addEventListener('click', () => this.scrollToBottom());
+        }
+        
+        // Monitor scroll position to show/hide scroll button
+        this.chatMessages.addEventListener('scroll', () => this.handleScroll());
         
         // Close chat when clicking outside
         document.addEventListener('click', (e) => {
@@ -266,58 +275,79 @@ class AmazonQChatWidget {
     }
     
     async getDemoResponse(message) {
-        // Enhanced demo responses for FMS logistics
+        // Enhanced demo responses for FMS logistics with Chinese support
         await this.delay(1000 + Math.random() * 2000); // Simulate API delay
         
+        // Check current language
+        const langSwitcher = document.querySelector('.lang-btn');
+        const isEnglish = !langSwitcher || langSwitcher.textContent === 'CN';
+        
         const responses = {
-            // FMS specific responses
-            'fms': 'FMS (Fulfillment by Amazon) is our comprehensive logistics solution. I can help you with inventory management, shipping processes, seller resources, and operational best practices. What specific area would you like to explore?',
+            // FMS specific responses - English & Chinese
+            'fms|物流': isEnglish ? 
+                'FMS (Fulfillment by Amazon) is our comprehensive logistics solution. I can help you with inventory management, shipping processes, seller resources, and operational best practices. What specific area would you like to explore?' :
+                'FMS（亚马逊物流）是我们的综合物流解决方案。我可以帮助您了解库存管理、配送流程、卖家资源和运营最佳实践。您想探索哪个具体领域？',
             
-            'inventory': 'For inventory management in FMS, I recommend checking our SCA Central VoS Bank for the latest inventory optimization strategies. You can also access real-time inventory tracking through our internal dashboards. Would you like me to guide you to specific resources?',
+            'inventory|库存': isEnglish ?
+                'For inventory management in FMS, I recommend checking our SCA Central VoS Bank for the latest inventory optimization strategies. You can also access real-time inventory tracking through our internal dashboards. Would you like me to guide you to specific resources?' :
+                '对于FMS的库存管理，我建议查看我们的SCA中央VoS银行以获取最新的库存优化策略。您还可以通过我们的内部仪表板访问实时库存跟踪。您希望我为您指导具体资源吗？',
             
-            'shipping': 'Our shipping processes are optimized for efficiency and cost-effectiveness. Key areas include: 1) Inbound shipping protocols, 2) Outbound delivery optimization, 3) Cross-docking procedures. Which shipping aspect interests you most?',
+            'shipping|配送|运输': isEnglish ?
+                'Our shipping processes are optimized for efficiency and cost-effectiveness. Key areas include: 1) Inbound shipping protocols, 2) Outbound delivery optimization, 3) Cross-docking procedures. Which shipping aspect interests you most?' :
+                '我们的配送流程经过优化，注重效率和成本效益。关键领域包括：1）入库配送协议，2）出库配送优化，3）交叉转运程序。您对哪个配送方面最感兴趣？',
             
-            'seller': 'For seller-facing resources, we have comprehensive support materials including: seller learning intake forms, work plans, and troubleshooting guides. You can access these through the FMS Seller Facing Resources menu. Need help with a specific seller issue?',
+            'seller|卖家': isEnglish ?
+                'For seller-facing resources, we have comprehensive support materials including: seller learning intake forms, work plans, and troubleshooting guides. You can access these through the FMS Seller Facing Resources menu. Need help with a specific seller issue?' :
+                '对于面向卖家的资源，我们有全面的支持材料，包括：卖家学习表单、工作计划和故障排除指南。您可以通过FMS卖家资源菜单访问这些资源。需要帮助解决特定的卖家问题吗？',
             
-            'automation': 'Our data and automation tools include advanced analytics for demand forecasting, automated inventory replenishment, and process optimization algorithms. These tools help reduce manual work and improve accuracy. What automation challenge are you facing?',
+            'automation|自动化': isEnglish ?
+                'Our data and automation tools include advanced analytics for demand forecasting, automated inventory replenishment, and process optimization algorithms. These tools help reduce manual work and improve accuracy. What automation challenge are you facing?' :
+                '我们的数据和自动化工具包括需求预测的高级分析、自动库存补充和流程优化算法。这些工具有助于减少手工工作并提高准确性。您面临什么自动化挑战？',
             
-            'best practice': 'Our AI Agent solutions focus on intelligent automation, predictive analytics, and smart decision support. These AI-powered systems help optimize logistics operations, predict demand patterns, and provide real-time recommendations. Which AI capability interests you most?',
+            'ai agent|ai代理|人工智能': isEnglish ?
+                'Our AI Agent solutions focus on intelligent automation, predictive analytics, and smart decision support. These AI-powered systems help optimize logistics operations, predict demand patterns, and provide real-time recommendations. Which AI capability interests you most?' :
+                '我们的AI代理解决方案专注于智能自动化、预测分析和智能决策支持。这些AI驱动的系统有助于优化物流运营、预测需求模式并提供实时建议。您对哪种AI能力最感兴趣？',
             
-            'ai agent': 'Our AI Agent solutions focus on intelligent automation, predictive analytics, and smart decision support. These AI-powered systems help optimize logistics operations, predict demand patterns, and provide real-time recommendations. Which AI capability interests you most?',
+            'gemba walk|现场走访': isEnglish ?
+                'Gemba walks are essential for understanding actual processes. Our methodology includes: 1) Structured observation techniques, 2) Systematic data collection, 3) Action planning based on findings. Would you like guidance on conducting effective gemba walks?' :
+                'Gemba走访对于理解实际流程至关重要。我们的方法包括：1）结构化观察技术，2）系统性数据收集，3）基于发现的行动计划。您希望获得进行有效gemba走访的指导吗？',
             
-            'gemba walk': 'Gemba walks are essential for understanding actual processes. Our methodology includes: 1) Structured observation techniques, 2) Systematic data collection, 3) Action planning based on findings. Would you like guidance on conducting effective gemba walks?',
+            'help|帮助': isEnglish ?
+                'I can assist you with FMS logistics operations including: inventory management, shipping processes, seller support, automation tools, AI agents, gemba walk methodology, and domain expertise. What would you like to explore?' :
+                '我可以协助您处理FMS物流运营，包括：库存管理、配送流程、卖家支持、自动化工具、AI代理、gemba走访方法和领域专业知识。您想探索什么？',
             
-            'domain': 'Our ESM FBA/SCA domain covers end-to-end fulfillment operations. Our domain members are experts in logistics optimization, process improvement, and operational excellence. How can our domain expertise help your specific challenge?',
+            'hello|你好|您好|hi': isEnglish ?
+                'Hello! I\'m Amazon Q, specialized in FMS logistics operations. I can help you navigate our internal resources, understand AI agents, and solve operational challenges. What brings you here today?' :
+                '您好！我是Amazon Q，专门从事FMS物流运营。我可以帮助您导航我们的内部资源、了解AI代理并解决运营挑战。今天是什么带您来这里的？',
             
-            'pilot': 'The Global AWD Pilot program focuses on advanced warehouse distribution strategies. It includes innovative approaches to inventory placement, cross-docking optimization, and regional fulfillment strategies. Are you interested in participating or learning more about pilot results?',
-            
-            'workplan': 'Our 2025 ESM FBA SCA Work Plan outlines strategic initiatives, operational improvements, and technology implementations. Key focus areas include automation expansion, process standardization, and performance optimization. Which workplan component interests you?',
-            
-            'vos': 'Voice of Seller (VoS) feedback is crucial for our continuous improvement. Our VoS bank contains seller insights, pain points, and improvement suggestions. This data drives our operational enhancements and policy updates. Looking for specific VoS insights?',
-            
-            // General helpful responses
-            'help': 'I can assist you with FMS logistics operations including: inventory management, shipping processes, seller support, automation tools, AI agents, gemba walk methodology, and domain expertise. What would you like to explore?',
-            
-            'hello': 'Hello! I\'m Amazon Q, specialized in FMS logistics operations. I can help you navigate our internal resources, understand AI agents, and solve operational challenges. What brings you here today?',
-            
-            'thank': 'You\'re welcome! I\'m here to help with any FMS logistics questions or challenges you might have. Feel free to ask about our resources, processes, or AI agents anytime.',
+            'thank|谢谢|感谢': isEnglish ?
+                'You\'re welcome! I\'m here to help with any FMS logistics questions or challenges you might have. Feel free to ask about our resources, processes, or AI agents anytime.' :
+                '不客气！我在这里帮助您解决任何FMS物流问题或挑战。随时可以询问我们的资源、流程或AI代理。',
             
             // Default responses
-            'default': [
+            'default': isEnglish ? [
                 'That\'s an interesting question about FMS operations. Based on our logistics expertise, I\'d recommend checking our internal resources or consulting with domain experts. Could you provide more specific details about your challenge?',
                 'I understand you\'re looking for information related to FMS logistics. Our comprehensive resources include operational guides, AI agents, and expert insights. What specific aspect would you like me to help you with?',
                 'For complex FMS logistics questions like this, I suggest reviewing our work plans and AI agent documentation. Our domain members have extensive experience with similar challenges. Would you like me to direct you to specific resources?'
+            ] : [
+                '这是一个关于FMS运营的有趣问题。基于我们的物流专业知识，我建议查看我们的内部资源或咨询领域专家。您能提供更多关于您挑战的具体细节吗？',
+                '我理解您正在寻找与FMS物流相关的信息。我们的综合资源包括运营指南、AI代理和专家见解。您希望我在哪个具体方面帮助您？',
+                '对于这样复杂的FMS物流问题，我建议查看我们的工作计划和AI代理文档。我们的领域成员在类似挑战方面有丰富经验。您希望我为您指向特定资源吗？'
             ]
         };
         
-        // Find best matching response
+        // Find best matching response with Chinese keyword support
         const lowerMessage = message.toLowerCase();
         let response = null;
         
         for (const [key, value] of Object.entries(responses)) {
-            if (key !== 'default' && lowerMessage.includes(key)) {
-                response = value;
-                break;
+            if (key !== 'default') {
+                // Split key by | to support multiple keywords (English|Chinese)
+                const keywords = key.split('|');
+                if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+                    response = value;
+                    break;
+                }
             }
         }
         
@@ -361,8 +391,45 @@ class AmazonQChatWidget {
         messageDiv.appendChild(messageContent);
         this.chatMessages.appendChild(messageDiv);
         
-        // Scroll to bottom
-        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+        // Enhanced scroll to bottom with smooth animation
+        this.scrollToBottom();
+        
+        // Add fade-in animation for new messages
+        messageDiv.style.opacity = '0';
+        messageDiv.style.transform = 'translateY(10px)';
+        
+        requestAnimationFrame(() => {
+            messageDiv.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            messageDiv.style.opacity = '1';
+            messageDiv.style.transform = 'translateY(0)';
+        });
+    }
+    
+    scrollToBottom() {
+        // Smooth scroll to bottom
+        this.chatMessages.scrollTo({
+            top: this.chatMessages.scrollHeight,
+            behavior: 'smooth'
+        });
+        
+        // Fallback for browsers that don't support smooth scrolling
+        setTimeout(() => {
+            this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+        }, 100);
+    }
+    
+    handleScroll() {
+        if (!this.scrollToBottomBtn) return;
+        
+        const { scrollTop, scrollHeight, clientHeight } = this.chatMessages;
+        const isNearBottom = scrollHeight - scrollTop - clientHeight < 50;
+        
+        // Show button when not at bottom, hide when at bottom
+        if (isNearBottom) {
+            this.scrollToBottomBtn.style.display = 'none';
+        } else {
+            this.scrollToBottomBtn.style.display = 'block';
+        }
     }
     
     updateWelcomeMessage() {
