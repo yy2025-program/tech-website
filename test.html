@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon员工模式测试</title>
+</head>
+<body>
+    <h1>Amazon员工模式测试页面</h1>
+    <p>如果你看到这个页面，说明GitHub Pages正常工作。</p>
+    
+    <button id="chat-button" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">
+        💬 Chat (原始版本)
+    </button>
+    
+    <div id="status" style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;">
+        状态：等待JavaScript执行...
+    </div>
+
+    <script>
+        console.log('🧪 测试页面JavaScript开始执行...');
+        
+        // 立即更新状态
+        document.getElementById('status').innerHTML = '✅ JavaScript正在执行！';
+        document.getElementById('status').style.background = '#d4edda';
+        document.getElementById('status').style.color = '#155724';
+        
+        // 创建测试指示器
+        const indicator = document.createElement('div');
+        indicator.innerHTML = '🧪 测试模式激活';
+        indicator.style.cssText = `
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 9999;
+        `;
+        document.body.appendChild(indicator);
+        
+        // 替换按钮
+        setTimeout(() => {
+            const chatButton = document.getElementById('chat-button');
+            if (chatButton) {
+                chatButton.innerHTML = '💬 Amazon Q Business (测试成功)';
+                chatButton.style.background = '#FF6B35';
+                chatButton.onclick = function() {
+                    alert('测试成功！Amazon员工模式可以工作。');
+                    window.open('https://ask.qbusiness.aws.dev/#/chat', '_blank');
+                };
+                
+                document.getElementById('status').innerHTML += '<br>✅ 按钮替换成功！';
+            }
+        }, 1000);
+        
+        console.log('✅ 测试页面JavaScript执行完成');
+    </script>
+</body>
+</html>
